@@ -35,7 +35,7 @@ exports.createClientes = async (req, res) => {
       [cliNome, cliSobrenome, cliCpf, cliTelefone, cliEndereco, cliSexo, cliid]
     );
   
-    res.status(200).send({ message: "Cliente editao com sucesso!" });
+    res.status(200).send({ message: "Cliente editado com sucesso!" });
   };
 
   exports.deleteClientesById = async (req, res) => {

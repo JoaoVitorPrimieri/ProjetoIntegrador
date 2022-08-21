@@ -9,6 +9,9 @@ const index = require("./routes/index");
 const usuarioRoute = require('./routes/usuarioRoute');
 const funcionarioRoute = require('./routes/funcionarioRoute');
 const clienteRoute = require('./routes/clienteRoute');
+const maquinaRoute = require('./routes/maquinaRoute');
+const servicoRoute = require('./routes/servicoRoute');
+const agendamentoRoute = require('./routes/agendamentoRoute');
 
 app.use(express.urlencoded({ extended: true }));
 
@@ -23,5 +26,8 @@ app.use(index);
 app.use('/api/', usuarioRoute);
 app.use('/api/', funcionarioRoute);
 app.use('/api/', clienteRoute);
+app.use('/api/', maquinaRoute);
+app.use('/api/', servicoRoute);
+app.use('/api/', agendamentoRoute);
 
 module.exports = app;

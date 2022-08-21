@@ -35,7 +35,7 @@ exports.createFuncionarios = async (req, res) => {
       [funNome, funSobrenome, funCpf, funTelefone, funEndereco, funSexo, funid]
     );
   
-    res.status(200).send({ message: "Funcionario editao com sucesso!" });
+    res.status(200).send({ message: "Funcionario editado com sucesso!" });
   };
 
   exports.deleteFuncionariosById = async (req, res) => {

@@ -35,7 +35,7 @@ exports.createUsuarios = async (req, res) => {
       [usuNome, usuSobrenome, usuCpf, usuTelefone, usuEndereco, usuSexo, usuSenha, usuid]
     );
   
-    res.status(200).send({ message: "Usuario editao com sucesso!" });
+    res.status(200).send({ message: "Usuario editado com sucesso!" });
   };
 
   exports.deleteUsuariosById = async (req, res) => {
