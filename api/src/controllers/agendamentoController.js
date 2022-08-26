@@ -18,7 +18,7 @@ exports.createAgendamentos = async (req, res) => {
       });
     } else {
       
-      //A PARTIR DAQUI FOI O BEAL
+      //Calculo do serviço
       const servico = await db.query("SELECT * FROM servicos WHERE serid = $1", [
         agdServico,
       ]);
@@ -27,7 +27,7 @@ exports.createAgendamentos = async (req, res) => {
       "INSERT INTO agendamentos (agdData, agdFuncionario, agdServico, agdUsuario, agdCliente, agdqtdHoras, agdValorTotal) VALUES ($1, $2, $3, $4, $5, $6, $7)",
       [agdData, agdFuncionario, agdServico, agdUsuario, agdCliente, agdqtdHoras, agdValorTotal]
     );
-    //AAAAAAAAAAAAAAAAA_____________________________________________        
+         
     res.status(201).send({
       message: "Agendamento adicionado com sucesso!",
       body: {
@@ -36,35 +36,39 @@ exports.createAgendamentos = async (req, res) => {
     });
   };
 };
-  exports.listAllServicos = async (req, res) => {
+  exports.listAllAgendamentos = async (req, res) => {
     const response = await db.query('SELECT * FROM agendamentos ORDER BY agdData ASC');
     res.status(200).send(response.rows);
   };
 
-  exports.findServicosById = async (req, res) => {
+  exports.findAgendamentosById = async (req, res) => {
     const agdid = parseInt(req.params.id);
     const response = await db.query('SELECT * FROM agendamentos WHERE agdid = $1', [agdid]);
+  //   if(agdid === null){
+  //     res.status(500).send({
+  //       message: "Id não encontrado",
+  //     });} else {
     res.status(200).send(response.rows);
-  }
+  // };
+ };
 
-
-  exports.updateServicosById = async (req, res) => {
-    const serid = parseInt(req.params.id);
-    const { agdData, agdFuncionario, agdServico, agdUsuario, agdCliente, agdqtdHoras, agdValorTotal } = req.body;
+  exports.updateAgendamentosById = async (req, res) => {
+    const agdid = parseInt(req.params.id);
+    const { agdData, agdFuncionario, agdServico, agdUsuario, agdCliente, agdqtdHoras } = req.body;
   
     const response = await db.query(
-      "UPDATE agendamento SET agdData = $1, agdFuncionario = $2, agdServico = $3 WHERE serid = $4",
-      [serNome, serValorServicoBase, serMaquinaId, serid]
+      "UPDATE agendamentos SET agdData = $1, agdFuncionario = $2, agdServico = $3, agdUsuario = $4, agdCliente = $5, agdqtdHoras = $6 WHERE agdid = $7",
+      [agdData, agdFuncionario, agdServico, agdUsuario, agdCliente, agdqtdHoras, agdid]
     );
   
-    res.status(200).send({ message: "Serviço editado com sucesso!" });
+    res.status(200).send({ message: "Agendamento editado com sucesso!" });
   };
 
-  exports.deleteServicosById = async (req, res) => {
-    const serid = parseInt(req.params.id);
-    await db.query('DELETE FROM servicos WHERE serid = $1', [
-        serid
+  exports.deleteAgendamentosById = async (req, res) => {
+    const agdid = parseInt(req.params.id);
+    await db.query('DELETE FROM agendamentos WHERE agdid = $1', [
+      agdid
     ]);
   
-    res.status(200).send({ message: 'Serviço deleado com sucesso!', serid });
+    res.status(200).send({ message: 'Agendamento deleado com sucesso!', agdid });
   };
