@@ -2,12 +2,12 @@ const db = require("../config/database");
 const VerificarEmpty = require("../validacoes/verificaEmpty");
 
 exports.createFuncionarios = async (req, res) => {
-  const { funNome, funSobrenome, funCpf, funTelefone, funEndereco, funSexo } =
+  const { funNome, funEmail, funCpf, funTelefone, funEndereco, funSexo } =
     req.body;
 
   const verificador = VerificarEmpty([
     { nome: "Nome", valor: funNome },
-    { nome: "Sobrenome", valor: funSobrenome },
+    { nome: "Email", valor: funEmail },
     { nome: "CPF", valor: funCpf },
     { nome: "Telefone", valor: funTelefone },
     { nome: "Endereço", valor: funEndereco },
@@ -19,15 +19,15 @@ exports.createFuncionarios = async (req, res) => {
     });
   } else {
     const { rows } = await db.query(
-      "INSERT INTO funcionarios (funNome, funSobrenome, funCpf, funTelefone, funEndereco, funSexo) VALUES ($1, $2, $3, $4, $5, $6)",
-      [funNome, funSobrenome, funCpf, funTelefone, funEndereco, funSexo]
+      "INSERT INTO funcionarios (funNome, funEmail, funCpf, funTelefone, funEndereco, funSexo) VALUES ($1, $2, $3, $4, $5, $6)",
+      [funNome, funEmail, funCpf, funTelefone, funEndereco, funSexo]
     );
     res.status(201).send({
       message: "Funionario adicionado com sucesso!",
       body: {
         funcionarios: {
           funNome,
-          funSobrenome,
+          funEmail,
           funCpf,
           funTelefone,
           funEndereco,
@@ -56,12 +56,12 @@ exports.findFuncionariosById = async (req, res) => {
 
 exports.updateFuncionariosById = async (req, res) => {
   const funid = parseInt(req.params.id);
-  const { funNome, funSobrenome, funCpf, funTelefone, funEndereco, funSexo } =
+  const { funNome, funEmail, funCpf, funTelefone, funEndereco, funSexo } =
     req.body;
     const verificador = VerificarEmpty([
       { nome: "Id", valor: funid },
       { nome: "Nome", valor: funNome },
-      { nome: "Sobrenome", valor: funSobrenome },
+      { nome: "Email", valor: funEmail },
       { nome: "CPF", valor: funCpf },
       { nome: "Telefone", valor: funTelefone },
       { nome: "Endereço", valor: funEndereco },
@@ -73,8 +73,8 @@ exports.updateFuncionariosById = async (req, res) => {
       });
     } else {
   const response = await db.query(
-    "UPDATE funcionarios SET funNome = $1, funSobrenome = $2, funCpf = $3, funTelefone = $4, funEndereco = $5, funSexo = $6 WHERE funid = $7",
-    [funNome, funSobrenome, funCpf, funTelefone, funEndereco, funSexo, funid]
+    "UPDATE funcionarios SET funNome = $1, funEmail = $2, funCpf = $3, funTelefone = $4, funEndereco = $5, funSexo = $6 WHERE funid = $7",
+    [funNome, funEmail, funCpf, funTelefone, funEndereco, funSexo, funid]
   );
 
   res.status(200).send({ message: "Funcionario editado com sucesso!" });

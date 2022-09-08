@@ -4,7 +4,7 @@ const VerificarEmpty = require("../validacoes/verificaEmpty");
 exports.createUsuarios = async (req, res) => {
   const {
     usuNome,
-    usuSobrenome,
+    usuEmail,
     usuCpf,
     usuTelefone,
     usuEndereco,
@@ -14,7 +14,7 @@ exports.createUsuarios = async (req, res) => {
 
   const verificador = VerificarEmpty([
     { nome: "Nome", valor: usuNome },
-    { nome: "Sobrenome", valor: usuSobrenome },
+    { nome: "Email", valor: usuEmail },
     { nome: "CPF", valor: usuCpf },
     { nome: "Telefone", valor: usuTelefone },
     { nome: "Endereço", valor: usuEndereco },
@@ -26,10 +26,10 @@ exports.createUsuarios = async (req, res) => {
     });
   } else {
     const { rows } = await db.query(
-      "INSERT INTO usuarios (usuNome, usuSobrenome, usuCpf, usuTelefone, usuEndereco, usuSexo, usuSenha) VALUES ($1, $2, $3, $4, $5, $6, $7)",
+      "INSERT INTO usuarios (usuNome, usuEmail, usuCpf, usuTelefone, usuEndereco, usuSexo, usuSenha) VALUES ($1, $2, $3, $4, $5, $6, $7)",
       [
         usuNome,
-        usuSobrenome,
+        usuEmail,
         usuCpf,
         usuTelefone,
         usuEndereco,
@@ -42,7 +42,7 @@ exports.createUsuarios = async (req, res) => {
       body: {
         usuarios: {
           usuNome,
-          usuSobrenome,
+          usuEmail,
           usuCpf,
           usuTelefone,
           usuEndereco,
@@ -72,7 +72,7 @@ exports.updateUsuariosById = async (req, res) => {
   const usuid = parseInt(req.params.id);
   const {
     usuNome,
-    usuSobrenome,
+    usuEmail,
     usuCpf,
     usuTelefone,
     usuEndereco,
@@ -81,12 +81,12 @@ exports.updateUsuariosById = async (req, res) => {
   } = req.body;
   
   const verificador = VerificarEmpty([
-    { nome: "Id", valor: maqid },
-    { nome: "Modelo", valor: maqModelo },
-    { nome: "Marca", valor: maqMarca },
-    { nome: "Tipo do Combustivel", valor: maqTipoCombustivel },
-    { nome: "Ano de Fabricação", valor: maqAnoFabricacao },
-    { nome: "Número do chassi", valor: maqnmrChassi },
+    { nome: "Nome", valor: usuNome },
+    { nome: "Email", valor: usuEmail },
+    { nome: "CPF", valor: usuCpf },
+    { nome: "Telefone", valor: usuTelefone },
+    { nome: "Endereço", valor: usuEndereco },
+    { nome: "Senha", valor: usuSenha },
   ]);
   if (verificador) {
     res.status(500).send({
@@ -94,10 +94,10 @@ exports.updateUsuariosById = async (req, res) => {
     });
   } else {
   const response = await db.query(
-    "UPDATE usuarios SET usuNome = $1, usuSobrenome = $2, usuCpf = $3, usuTelefone = $4, usuEndereco = $5, usuSexo = $6, usuSenha = $7 WHERE usuid = $8",
+    "UPDATE usuarios SET usuNome = $1, usuEmail = $2, usuCpf = $3, usuTelefone = $4, usuEndereco = $5, usuSexo = $6, usuSenha = $7 WHERE usuid = $8",
     [
       usuNome,
-      usuSobrenome,
+      usuEmail,
       usuCpf,
       usuTelefone,
       usuEndereco,

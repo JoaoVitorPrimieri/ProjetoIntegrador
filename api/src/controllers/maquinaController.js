@@ -1,5 +1,6 @@
 const db = require("../config/database");
 const VerificarEmpty = require("../validacoes/verificaEmpty");
+const VerificarNumber = require("../validacoes/verificaNumber");
 
 exports.createMaquinas = async (req, res) => {
   const {
