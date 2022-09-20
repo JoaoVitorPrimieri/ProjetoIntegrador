@@ -13,6 +13,26 @@
   color: white;
 } */
 
+.quadrado{
+  width: 100px;
+  height: 100px;
+  background-color: #282c34;
+  border: 1px solid #282c34;
+  border-radius: 5px;
+  margin-top: 80px;
+  display: flex;
+  flex-direction:row;
+  justify-content: center;
+  align-items: center;
 
+  
+}
+
+.head{
+  margin: 0; 
+  display: inline;
+  align-items:center;
+  justify-content: center;
+}
 
 

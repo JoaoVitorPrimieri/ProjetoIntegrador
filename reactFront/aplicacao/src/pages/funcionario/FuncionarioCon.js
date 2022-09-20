@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import UsuarioList from "./UsuarioList";
-import UsuarioForm from "./UsuarioForm";
-import UsuarioSrv from "./UsuarioSrv";
+import FuncionarioList from "./FuncionarioList";
+import FuncionarioForm from "./FuncionarioForm";
+import FuncionarioSrv from "./FuncionarioSrv";
 import { Toast } from "primereact/toast";
 import { ConfirmDialog, confirmDialog } from "primereact/confirmdialog";
 import "primeicons/primeicons.css";
@@ -10,20 +10,19 @@ import "primereact/resources/themes/lara-light-indigo/theme.css";
 import "primereact/resources/primereact.css";
 import "primeflex/primeflex.css";
 
-function UsuarioCont() {
-    const [usuarios, setUsuarios] = useState([]);
+function FuncionarioCont() {
+    const [funcionarios, setFuncionarios] = useState([]);
     const toastRef = useRef();
     const initialState = {
-        usuId: null,
-        usuNome: "",
-        usuEmail: "",
-        usuCpf: "",
-        usuTelefone: "",
-        usuEndereco: "",
-        usuSexo: "",
-        usuSenha: "",
+        funId: null,
+        funNome: "",
+        funEmail: "",
+        funCpf: "",
+        funTelefone: "",
+        funEndereco: "",
+        funSexo: "",
     };
-    const [usuario, setUsuario] = useState(initialState);
+    const [funcionario, setFuncionario] = useState(initialState);
     const [editando, setEditando] = useState(false);
 
     useEffect(() => {
@@ -31,12 +30,12 @@ function UsuarioCont() {
     }, []);
 
     const onClickAtualizar = () => {
-        UsuarioSrv.listar()
+        FuncionarioSrv.listar()
             .then((response) => {
-                setUsuarios(response.data);
+                setFuncionarios(response.data);
                 toastRef.current.show({
                     severity: "success",
-                    summary: "Usuarios atualizados",
+                    summary: "Funcionarios atualizados",
                     life: 3000,
                 });
             })
@@ -49,16 +48,6 @@ function UsuarioCont() {
             });
     };
 
-    // React.useEffect(() => {
-    //   api
-    //     .get("/usuarios")
-    //     .then((response) => setUsuarios(response.data))
-    //     .catch((err) => {
-    //       console.error("ops! ocorreu um erro" + err);
-    //     });
-    // }, []);
-    // // operação inserir
-
     const inserir = () => {
         setEditando(true);
     };
@@ -66,18 +55,18 @@ function UsuarioCont() {
     const cancelar = () => {
         console.log("Cancelou ...");
         setEditando(false);
-        setUsuario(initialState);
+        setFuncionario(initialState);
     };
 
     const salvar = () => {
-        if (usuario.usuId == null) {
+        if (funcionario. funId == null) {
             // inclussão
 
-            UsuarioSrv.incluir(usuario)
+            FuncionarioSrv.incluir(funcionario)
                 .then((response) => {
                     setEditando(false);
                     onClickAtualizar();
-                    setUsuario(initialState);
+                    setFuncionario(initialState);
 
                     toastRef.current.show({
                         severity: "success",
@@ -94,11 +83,11 @@ function UsuarioCont() {
                 });
         } else {
             // alteração
-            UsuarioSrv.alterar(usuario)
+            FuncionarioSrv.alterar(funcionario)
                 .then((response) => {
                     setEditando(false);
                     onClickAtualizar();
-                    setUsuario(initialState);
+                    setFuncionario(initialState);
 
                     toastRef.current.show({
                         severity: "success",
@@ -117,11 +106,11 @@ function UsuarioCont() {
     };
 
     const editar = (id) => {
-        setUsuario(usuarios.filter((usuario) => usuario.usuId === id)[0]);
+        setFuncionario(funcionarios.filter((funcionario) => funcionario. funId === id)[0]);
         setEditando(true);
     };
 
-    const excluir = (usuId) => {
+    const excluir = ( funId) => {
         confirmDialog({
             message: "Confirma a exclusão?",
             header: "Confirmação",
@@ -129,12 +118,12 @@ function UsuarioCont() {
             acceptLabel: "Sim",
             rejectLabel: "Não",
             acceptClassName: "p-button-danger",
-            accept: () => excluirConfirm(usuId),
+            accept: () => excluirConfirm( funId),
         });
     };
 
-    const excluirConfirm = (usuId) => {
-        UsuarioSrv.excluir(usuId)
+    const excluirConfirm = ( funId) => {
+        FuncionarioSrv.excluir( funId)
             .then((response) => {
                 onClickAtualizar();
                 toastRef.current.show({
@@ -157,8 +146,8 @@ function UsuarioCont() {
             <div className="App">
                 <Toast ref={toastRef} />
                 <ConfirmDialog />
-                <UsuarioList
-                    usuarios={usuarios}
+                <FuncionarioList
+                    funcionarios={funcionarios}
                     inserir={inserir}
                     editar={editar}
                     excluir={excluir}
@@ -171,9 +160,9 @@ function UsuarioCont() {
     } else {
         return (
             <div className="App">
-                <UsuarioForm
-                    usuario={usuario}
-                    setUsuario={setUsuario}
+                <FuncionarioForm
+                    funcionario={funcionario}
+                    setFuncionario={setFuncionario}
                     salvar={salvar}
                     cancelar={cancelar}
                 />
@@ -183,4 +172,4 @@ function UsuarioCont() {
     }
 }
 
-export default UsuarioCont;
+export default FuncionarioCont;

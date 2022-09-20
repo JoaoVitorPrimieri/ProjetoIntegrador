@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import UsuarioList from "./UsuarioList";
-import UsuarioForm from "./UsuarioForm";
-import UsuarioSrv from "./UsuarioSrv";
+import MaquinaList from "./MaquinaList";
+import MaquinaForm from "./MaquinaForm";
+import MaquinaSrv from "./MaquinaSrv";
 import { Toast } from "primereact/toast";
 import { ConfirmDialog, confirmDialog } from "primereact/confirmdialog";
 import "primeicons/primeicons.css";
@@ -10,20 +10,18 @@ import "primereact/resources/themes/lara-light-indigo/theme.css";
 import "primereact/resources/primereact.css";
 import "primeflex/primeflex.css";
 
-function UsuarioCont() {
-    const [usuarios, setUsuarios] = useState([]);
+function MaquinaCont() {
+    const [maquinas, setMaquinas] = useState([]);
     const toastRef = useRef();
     const initialState = {
-        usuId: null,
-        usuNome: "",
-        usuEmail: "",
-        usuCpf: "",
-        usuTelefone: "",
-        usuEndereco: "",
-        usuSexo: "",
-        usuSenha: "",
+        maqId: null,
+        maqModelo: "",
+        maqMarca: "",
+        maqTipoCombustivel: "",
+        maqAnoFabricacao: "",
+        maqnmrChassi: "",
     };
-    const [usuario, setUsuario] = useState(initialState);
+    const [maquina, setMaquina] = useState(initialState);
     const [editando, setEditando] = useState(false);
 
     useEffect(() => {
@@ -31,12 +29,12 @@ function UsuarioCont() {
     }, []);
 
     const onClickAtualizar = () => {
-        UsuarioSrv.listar()
+        MaquinaSrv.listar()
             .then((response) => {
-                setUsuarios(response.data);
+                setMaquinas(response.data);
                 toastRef.current.show({
                     severity: "success",
-                    summary: "Usuarios atualizados",
+                    summary: "Maquinas atualizados",
                     life: 3000,
                 });
             })
@@ -66,18 +64,17 @@ function UsuarioCont() {
     const cancelar = () => {
         console.log("Cancelou ...");
         setEditando(false);
-        setUsuario(initialState);
+        setMaquina(initialState);
     };
 
     const salvar = () => {
-        if (usuario.usuId == null) {
+        if (maquina.maqId == null) {
             // inclussão
-
-            UsuarioSrv.incluir(usuario)
+            MaquinaSrv.incluir(maquina)
                 .then((response) => {
                     setEditando(false);
                     onClickAtualizar();
-                    setUsuario(initialState);
+                    setMaquina(initialState);
 
                     toastRef.current.show({
                         severity: "success",
@@ -94,11 +91,11 @@ function UsuarioCont() {
                 });
         } else {
             // alteração
-            UsuarioSrv.alterar(usuario)
+            MaquinaSrv.alterar(maquina)
                 .then((response) => {
                     setEditando(false);
                     onClickAtualizar();
-                    setUsuario(initialState);
+                    setMaquina(initialState);
 
                     toastRef.current.show({
                         severity: "success",
@@ -117,11 +114,11 @@ function UsuarioCont() {
     };
 
     const editar = (id) => {
-        setUsuario(usuarios.filter((usuario) => usuario.usuId === id)[0]);
+        setMaquina(maquinas.filter((maquina) => maquina.maqId === id)[0]);
         setEditando(true);
     };
 
-    const excluir = (usuId) => {
+    const excluir = (maqId) => {
         confirmDialog({
             message: "Confirma a exclusão?",
             header: "Confirmação",
@@ -129,12 +126,12 @@ function UsuarioCont() {
             acceptLabel: "Sim",
             rejectLabel: "Não",
             acceptClassName: "p-button-danger",
-            accept: () => excluirConfirm(usuId),
+            accept: () => excluirConfirm(maqId),
         });
     };
 
-    const excluirConfirm = (usuId) => {
-        UsuarioSrv.excluir(usuId)
+    const excluirConfirm = (maqId) => {
+        MaquinaSrv.excluir(maqId)
             .then((response) => {
                 onClickAtualizar();
                 toastRef.current.show({
@@ -157,8 +154,8 @@ function UsuarioCont() {
             <div className="App">
                 <Toast ref={toastRef} />
                 <ConfirmDialog />
-                <UsuarioList
-                    usuarios={usuarios}
+                <MaquinaList
+                    maquinas={maquinas}
                     inserir={inserir}
                     editar={editar}
                     excluir={excluir}
@@ -171,9 +168,9 @@ function UsuarioCont() {
     } else {
         return (
             <div className="App">
-                <UsuarioForm
-                    usuario={usuario}
-                    setUsuario={setUsuario}
+                <MaquinaForm
+                    maquina={maquina}
+                    setMaquina={setMaquina}
                     salvar={salvar}
                     cancelar={cancelar}
                 />
@@ -183,4 +180,4 @@ function UsuarioCont() {
     }
 }
 
-export default UsuarioCont;
+export default MaquinaCont;

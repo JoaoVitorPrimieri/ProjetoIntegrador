@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { Dropdown } from "primereact/dropdown";
@@ -28,19 +28,19 @@ const template2 = {
     }
 };
 
-const UsuarioList = (props) => {
+const ClienteList = (props) => {
   const countryBodyTemplate = (rowData) => {
     return (
         <React.Fragment>
-           <button onClick={() => props.editar(rowData.usuId)}  className="btn btn-danger">Editar</button>
-            <button onClick={() => props.excluir(rowData.usuid)} className="btn btn-danger">Excluir</button> 
+           <button onClick={() => props.editar(rowData.cliId)}  className="btn btn-danger">Editar</button>
+            <button onClick={() => props.excluir(rowData.cliid)} className="btn btn-danger">Excluir</button> 
         </React.Fragment>
     );
 }
   return(
   <div>   
     <div>
-      <h4>Listagem de Usuários</h4>
+      <h4>Listagem de Clientes</h4>
       <button
         button
         type="button"
@@ -57,13 +57,12 @@ const UsuarioList = (props) => {
         Inserir
       </button>
       <div className="card">
-        <DataTable value={props.usuarios} responsiveLayout="scroll" selectionMode="single" paginator paginatorTemplate={template2} rows={8} 
+        <DataTable value={props.clientes} responsiveLayout="scroll" selectionMode="single" paginator paginatorTemplate={template2} rows={8} 
                     paginatorClassName="justify-content-center" className="mt-6">
-          <Column field="usuId" header="ID" sortable filter></Column>
-          <Column field="usunome" header="Nome" sortable filter></Column>
-          <Column field="usuemail" header="E-mail" sortable filter></Column>
-          <Column field="usutelefone" header="Telefone"  sortable filter ></Column>
-          <Column field="usuendereco" header="Endereço" sortable filter></Column>
+          <Column field="clinome" header="Nome" sortable filter></Column>
+          <Column field="cliemail" header="E-mail" sortable filter></Column>
+          <Column field="clitelefone" header="Telefone"  sortable filter ></Column>
+          <Column field="cliendereco" header="Endereço" sortable filter></Column>
           <Column header="Operações" body={countryBodyTemplate}></Column>
         </DataTable>
       </div>
@@ -71,4 +70,4 @@ const UsuarioList = (props) => {
   </div>
 );
   }
-export default UsuarioList;
+export default ClienteList;
