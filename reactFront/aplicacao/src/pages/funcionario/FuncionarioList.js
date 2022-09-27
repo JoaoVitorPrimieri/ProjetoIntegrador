@@ -93,7 +93,6 @@ const FuncionarioList = (props) => {
             paginatorClassName="justify-content-center"
             className="mt-6"
           >
-            <Column field="funId" header="ID" sortable filter></Column>
             <Column field="funnome" header="Nome" sortable filter></Column>
             <Column field="funemail" header="E-mail" sortable filter></Column>
             <Column field="funtelefone" header="Telefone" sortable filter></Column>

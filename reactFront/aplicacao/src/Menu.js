@@ -31,8 +31,9 @@ function Menu() {
           {
             label: 'Maquina', icon: 'pi pi-fw pi-user',
             command: () => { navigate("/maquinas") }
-          }, {
-            label: 'Servico', icon: 'pi pi-fw pi-user',
+          },
+          {
+            label: 'Serviço', icon: 'pi pi-fw pi-user',
             command: () => { navigate("/servicos") }
           }
         ]

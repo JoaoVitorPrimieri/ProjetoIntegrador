@@ -59,7 +59,6 @@ const UsuarioList = (props) => {
       <div className="card">
         <DataTable value={props.usuarios} responsiveLayout="scroll" selectionMode="single" paginator paginatorTemplate={template2} rows={8} 
                     paginatorClassName="justify-content-center" className="mt-6">
-          <Column field="usuId" header="ID" sortable filter></Column>
           <Column field="usunome" header="Nome" sortable filter></Column>
           <Column field="usuemail" header="E-mail" sortable filter></Column>
           <Column field="usutelefone" header="Telefone"  sortable filter ></Column>

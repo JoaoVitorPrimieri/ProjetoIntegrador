@@ -98,5 +98,5 @@ exports.deleteMaquinasById = async (req, res) => {
   const maqid = parseInt(req.params.id);
   await db.query("DELETE FROM maquinas WHERE maqid = $1", [maqid]);
 
-  res.status(200).send({ message: "Maquina deleada com sucesso!", maqid });
+  res.status(200).send({ message: "Maquina deletada com sucesso!", maqid });
 };

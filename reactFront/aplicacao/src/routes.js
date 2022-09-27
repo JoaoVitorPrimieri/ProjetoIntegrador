@@ -4,6 +4,7 @@ import Usuarios from "./pages/usuario";
 import Funcionarios from "./pages/funcionario";
 import Clientes from "./pages/cliente";
 import Maquinas from "./pages/maquina";
+import Servicos from "./pages/servico";
 import Inicio from "./pages/inicio";
 
 export default function Routes() {
@@ -15,6 +16,7 @@ export default function Routes() {
         <Route path="/funcionarios" component={Funcionarios}/>
         <Route path="/clientes" component={Clientes}/>
         <Route path="/maquinas" component={Maquinas}/>
+        <Route path="/servicos" component={Servicos}/>
       </Switch>
     </BrowserRouter>
   );

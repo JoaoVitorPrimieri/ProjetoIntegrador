@@ -33,7 +33,7 @@ const MaquinaList = (props) => {
     return (
         <React.Fragment>
            <button onClick={() => props.editar(rowData.maqId)}  className="btn btn-danger">Editar</button>
-            <button onClick={() => props.excluir(rowData.maqId)} className="btn btn-danger">Excluir</button> 
+            <button onClick={() => props.excluir(rowData.maqid)} className="btn btn-danger">Excluir</button> 
         </React.Fragment>
     );
 }
@@ -57,13 +57,13 @@ const MaquinaList = (props) => {
         Inserir
       </button>
       <div className="card">
-        <DataTable value={props.maquinas} responsiveLayout="scroll" selectionMode="single" paginator paginatorTemplate={template2} rows={8} 
+        <DataTable value={props.maquinas} responsiveLayout="scroll" selectionMode="single" paginator paginatorTemplate={template2} rows={9} 
                     paginatorClassName="justify-content-center" className="mt-6">
-          <Column field="maqModelo" header="Modelo" sortable filter></Column>
-          <Column field="maqMarca" header="Marca" sortable filter></Column>
-          <Column field="maqTipoCombustivel" header="Tipo Combustivel"  sortable filter ></Column>
-          <Column field="maqAnoFabricacao" header="Ano Fabricação" sortable filter></Column>
-          <Column field="maqnmrChassi" header="Número do Chassi" sortable filter></Column>
+          <Column field="maqmodelo" header="Modelo" sortable filter></Column>
+          <Column field="maqmarca" header="Marca" sortable filter></Column>
+          <Column field="maqtipocombustivel" header="Tipo Combustivel"  sortable filter ></Column>
+          <Column field="maqanofabricacao" header="Ano Fabricação" sortable filter></Column>
+          <Column field="maqnmrchassi" header="Número do Chassi" sortable filter></Column>
           <Column header="Operações" body={countryBodyTemplate}></Column>
         </DataTable>
       </div>
