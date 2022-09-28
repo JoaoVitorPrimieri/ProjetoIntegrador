@@ -14,7 +14,8 @@ import Menu from'./Menu'
    const ClienteCon = lazy(() => import('./pages/cliente/ClienteCon'));
    const MaquinaCon = lazy(() => import('./pages/maquina/MaquinaCon'));
    const ServicoCon = lazy(() => import('./pages/servico/ServicoCon'));
-
+   const AgendamentoCon = lazy(() => import('./pages/agendamento/AgendamentoCon'));
+  
 
 
 function App() {
@@ -42,6 +43,7 @@ function App() {
           <Route path="/clientes" element={<ClienteCon />} />
           <Route path="/maquinas" element={<MaquinaCon />} />
           <Route path="/servicos" element={<ServicoCon />} />
+          <Route path="/agendamentos" element={<AgendamentoCon />} />
         </Routes>
       </Suspense>
     </BrowserRouter>

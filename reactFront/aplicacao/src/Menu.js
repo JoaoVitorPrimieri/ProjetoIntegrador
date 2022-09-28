@@ -35,6 +35,10 @@ function Menu() {
           {
             label: 'Serviço', icon: 'pi pi-fw pi-user',
             command: () => { navigate("/servicos") }
+          },
+          {
+            label: 'Relatórios', icon: 'pi pi-fw pi-user',
+            command: () => { navigate("/relatorios") }
           }
         ]
       },

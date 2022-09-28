@@ -23,11 +23,11 @@ app.use(cors());
 
 app.use(index);
 
-app.use('/api/', usuarioRoute);
-app.use('/api/', funcionarioRoute);
-app.use('/api/', clienteRoute);
-app.use('/api/', maquinaRoute);
-app.use('/api/', servicoRoute);
-app.use('/api/', agendamentoRoute);
+app.use('/api', usuarioRoute);
+app.use('/api', funcionarioRoute);
+app.use('/api', clienteRoute);
+app.use('/api', maquinaRoute);
+app.use('/api', servicoRoute);
+app.use('/api', agendamentoRoute);
 
 module.exports = app;

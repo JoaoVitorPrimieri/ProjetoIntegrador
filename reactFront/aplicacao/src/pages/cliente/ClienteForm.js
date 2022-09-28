@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { InputText } from "primereact/inputtext";
 import { Button } from "primereact/button";
 import { useForm } from "react-hook-form";
@@ -11,8 +11,6 @@ const ClienteForm = (props) => {
     props.setCliente({ ...props.cliente, [name]: value });
   };
 
-  const [contraSenha, setContraSenha] = useState();
-
   const sexoSelect = [
     { label: "Masculino", value: "Masculino" },
     { label: "Feminino", value: "Feminino" },
@@ -22,22 +20,11 @@ const ClienteForm = (props) => {
   const {
     register,
     handleSubmit,
-    setError,
     formState: { errors },
   } = useForm();
 
   const onSubmit = (data) => {
     props.salvar();
-
-    //console.log(data);
-    // if (contraSenha != props.usuario.senha) {
-    //   setError("senha", {
-    //     type: "custom",
-    //     message: "Senha e contra senha são diferentes!",
-    //   });
-    // } else {
-    //   props.salvar();
-    // }
   };
 
   return (
@@ -183,13 +170,6 @@ const ClienteForm = (props) => {
                 />
               </div>
             </div>
-            {/* <div className="p-fluid grid formgrid">
-                    <div className="field col-12 md:col-4">
-                        <label htmlFor="contraSenha">Contra Senha</label>
-                        <InputText name="contraSenha" defaultValue={contraSenha} 
-                                   onChange={ e => setContraSenha(e.target.value)} />
-                    </div>
-                </div>                          */}
           </div>
 
           <div>

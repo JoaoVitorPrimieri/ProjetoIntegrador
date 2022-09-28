@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { InputText } from "primereact/inputtext";
 import { Button } from "primereact/button";
 import { useForm } from "react-hook-form";
@@ -20,7 +20,6 @@ const FuncionarioForm = (props) => {
   const {
     register,
     handleSubmit,
-    setError,
     formState: { errors },
   } = useForm();
 

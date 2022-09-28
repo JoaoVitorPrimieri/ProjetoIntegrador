@@ -114,5 +114,5 @@ exports.deleteUsuariosById = async (req, res) => {
   const usuid = parseInt(req.params.id);
   await db.query("DELETE FROM usuarios WHERE usuid = $1", [usuid]);
 
-  res.status(200).send({ message: "Usuario deleado com sucesso!", usuid });
+  res.status(200).send({ message: "Usuario deletado com sucesso!", usuid });
 };

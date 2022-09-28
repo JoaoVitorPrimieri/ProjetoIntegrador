@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { InputText } from "primereact/inputtext";
 import { Button } from "primereact/button";
 import { useForm } from "react-hook-form";
@@ -10,9 +10,6 @@ const MaquinaForm = (props) => {
     const { name, value } = event.target;
     props.setMaquina({ ...props.maquina, [name]: value });
   };
-
-  const [contraSenha, setContraSenha] = useState();
-
   const combustivelSelect = [
     { label: "Diesel", value: "Diesel" },
     { label: "Álcool", value: "Álcool" },
@@ -22,22 +19,11 @@ const MaquinaForm = (props) => {
   const {
     register,
     handleSubmit,
-    setError,
     formState: { errors },
   } = useForm();
 
   const onSubmit = (data) => {
     props.salvar();
-
-    //console.log(data);
-    // if (contraSenha != props.usuario.senha) {
-    //   setError("senha", {
-    //     type: "custom",
-    //     message: "Senha e contra senha são diferentes!",
-    //   });
-    // } else {
-    //   props.salvar();
-    // }
   };
 
   return (
@@ -69,7 +55,9 @@ const MaquinaForm = (props) => {
                   onChange={handleInputChange}
                 />
                 {errors.maqModelo && (
-                  <span style={{ color: "red" }}>{errors.maqModelo.message}</span>
+                  <span style={{ color: "red" }}>
+                    {errors.maqModelo.message}
+                  </span>
                 )}
               </div>
             </div>
@@ -123,7 +111,7 @@ const MaquinaForm = (props) => {
             </div>
             <div className="p-fluid gridF formgrid">
               <div className="field col-12 md:col-4">
-                <label htmlFor="maqAnoFabricacao">Ano Fabricação</label>
+                <label htmlFor="maqAnoFabricacao">Data Fabricação</label>
                 <div>
                   <InputMask
                     name="maqAnoFabricacao"

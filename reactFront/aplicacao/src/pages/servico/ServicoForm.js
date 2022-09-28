@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { InputText } from "primereact/inputtext";
 import { Button } from "primereact/button";
 import { useForm } from "react-hook-form";
@@ -14,7 +14,6 @@ const ServicoForm = (props) => {
   const {
     register,
     handleSubmit,
-    setError,
     formState: { errors },
   } = useForm();
 
@@ -55,14 +54,14 @@ const ServicoForm = (props) => {
                 )}
               </div>
             </div>
-           
+
             <div className="p-fluid grid formgrid">
               <div className="field col-12 md:col-4">
                 <label htmlFor="serValorServicoBase">Valor Base</label>
                 <InputNumber
                   name="serValorServicoBase"
                   {...register("serValorServicoBase", {
-                   valueAsNumber: true,
+                    valueAsNumber: true,
                   })}
                   inputMode="decimal"
                   value={props.servico.serValorServicoBase}
@@ -96,7 +95,6 @@ const ServicoForm = (props) => {
                   optionLabel="maqmodelo"
                   optionValue="maqid"
                   placeholder="Selecione uma máquina"
-
                 />
               </div>
             </div>
