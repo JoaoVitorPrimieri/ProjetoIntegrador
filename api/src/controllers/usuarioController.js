@@ -116,3 +116,9 @@ exports.deleteUsuariosById = async (req, res) => {
 
   res.status(200).send({ message: "Usuario deletado com sucesso!", usuid });
 };
+// exports.login = async (req, res) => {
+//   const usuEmail = req.params.email;  
+//   const response = await db.query(
+//     "SELECT usuEmail usuSenha FROM usuarios WHERE usuEmail = $1", [usuEmail]);
+//   res.status(200).send(response.rows);
+// };

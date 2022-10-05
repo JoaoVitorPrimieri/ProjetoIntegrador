@@ -7,4 +7,7 @@ router.get("/usuarios", usuarioController.listAllUsuarios);
 router.get("/usuarios/:id", usuarioController.findUsuariosById);
 router.put("/usuarios/:id", usuarioController.updateUsuariosById);
 router.delete('/usuarios/:id', usuarioController.deleteUsuariosById);
+// router.get("/usuarios/:id/locais", usuarioController.listAllLocaisByUsuarioId);
+
+
 module.exports = router;
