@@ -1,3 +1,4 @@
+const { parseComplete } = require("pg-protocol/dist/messages");
 const db = require("../config/database");
 const VerificarEmpty = require("../validacoes/verificaEmpty");
 
@@ -117,8 +118,25 @@ exports.deleteUsuariosById = async (req, res) => {
   res.status(200).send({ message: "Usuario deletado com sucesso!", usuid });
 };
 // exports.login = async (req, res) => {
-//   const usuEmail = req.params.email;  
+//   const { usuEmail, usuSenha } = req.body;
+
 //   const response = await db.query(
-//     "SELECT usuEmail usuSenha FROM usuarios WHERE usuEmail = $1", [usuEmail]);
+//     "SELECT usuEmail, usuSenha FROM usuarios WHERE usuEmail = $1 AND usuSenha = $2",
+//     [usuEmail, usuSenha]
+    
+//   );
 //   res.status(200).send(response.rows);
 // };
+
+exports.login = async (req, res) => {
+  const { usuEmail, usuSenha } = req.body;
+  const response = await db.query(
+    "SELECT usuEmail, usuSenha FROM usuarios WHERE usuEmail = $1 AND usuSenha = $2",
+    [usuEmail, usuSenha]
+  );
+  res.status(200).send(response.rows);
+}
+
+
+
+

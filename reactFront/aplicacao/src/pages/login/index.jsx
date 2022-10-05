@@ -1,46 +1,31 @@
-// import React, { useState } from "react";
+import React, { useState } from "react";
+import api from "../../services/api";
+import LoginSrv from "./LoginSrv";
+function Login(props) {
+  const [usuario, setUsuario] = useState([]);
+  const [email, setEmail] = useState("");
+  const [senha, setSenha] = useState("");
+  function buscaUsuario() {
 
-// const LoginPage = () => {
-//   const [email, setEmail] = useState("");
-//   const [password, setPassword] = useState("");
+    LoginSrv.incluir(usuario).then((response) => {
+      setUsuario(response.data);
+    });
+  }
+  function alterarEmail(event) {
+    setEmail(event.target.value);
+  }
+  function alterarSenha(event) {
+    setSenha(event.target.value);
+  }
+  return (
+    <div>
+      <input type="text" value={email} onChange={alterarEmail} />
+      <input type="password" value={senha} onChange={alterarSenha} />
+      <button onClick={() => buscaUsuario({ email, senha })} type="button">
+        Entrar
+      </button>
+    </div>
+  );
+}
 
-//   const handleSubmit = (event) => {
-//     event.preventDefault();
-//     console.log("submit", { email, password });
-//   };
-
-//   return (
-//     <div id="login">
-//       <h1 className="title">Login</h1>
-//       <form className="form" onSubmit={handleSubmit}>
-//         <div className="field">
-//           <label htmlFor="email">Email</label>
-//           <input
-//             type="email"
-//             name="email"
-//             id="email"
-//             placeholder="email"
-//             value={email}
-//             onChange={(event) => setEmail(event.target.value)}
-//           />
-//         </div>
-//         <div className="field">
-//           <label htmlFor="password">Senha </label>
-//           <input
-//             type="password"
-//             name="password"
-//             id="password"
-//             placeholder="password"
-//             value={password}
-//             onChange={(event) => setPassword(event.target.value)}
-//           />
-//         </div>
-//         <div className="actions">
-//           <button type="submit">Entrar</button>
-//         </div>
-//       </form>
-//     </div>
-//   );
-// };
-
-// export default LoginPage;
+export default Login;

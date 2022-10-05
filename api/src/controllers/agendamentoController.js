@@ -125,7 +125,7 @@ exports.deleteAgendamentosById = async (req, res) => {
     await db.query("DELETE FROM agendamentos WHERE agdid = $1", [agdid]);
 
     res.status(200).send({
-        message: "Agendamento deleado com sucesso!",
+        message: "Agendamento deletado com sucesso!",
         agdid,
     });
 };

@@ -7,18 +7,14 @@ import 'primereact/resources/primereact.css';
 import 'primeflex/primeflex.css';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Menu from'./Menu'
-import LoginPage from'./pages/login/index'
-import HomePage from './pages/home/index'
-// import LoginForm from './pages/login/LoginForm'
 
-// const Home = lazy(() => import('./pages/home/home'));
    const UsuarioCon = lazy(() => import('./pages/usuario/UsuarioCon'));
    const FuncionarioCon = lazy(() => import('./pages/funcionario/FuncionarioCon'));
    const ClienteCon = lazy(() => import('./pages/cliente/ClienteCon'));
    const MaquinaCon = lazy(() => import('./pages/maquina/MaquinaCon'));
    const ServicoCon = lazy(() => import('./pages/servico/ServicoCon'));
    const AgendamentoCon = lazy(() => import('./pages/agendamento/AgendamentoCon'));
-  //  const Login = lazy(() => import('./pages/login/LoginForm'));
+   const Login = lazy(() => import('./pages/login/index'));
 
 
 
@@ -41,7 +37,7 @@ function App() {
       <Suspense fallback={<div>Carregando ...</div>}>
         <Routes>
           {/* <Route path="/" element={<LoginPage/>} /> */}
-          {/* <Route index path="/login" element={<Login />} /> */}
+          <Route index path="/login" element={<Login />} />
           <Route path="/usuarios" element={<UsuarioCon />} />
           <Route path="/funcionarios" element={<FuncionarioCon />} />
           <Route path="/clientes" element={<ClienteCon />} />

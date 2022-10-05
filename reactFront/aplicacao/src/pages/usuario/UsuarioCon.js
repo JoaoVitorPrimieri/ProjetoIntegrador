@@ -3,6 +3,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import UsuarioList from "./UsuarioList";
 import UsuarioForm from "./UsuarioForm";
 import UsuarioSrv from "./UsuarioSrv";
+import Login from "../login/index";
 import { Toast } from "primereact/toast";
 import { ConfirmDialog, confirmDialog } from "primereact/confirmdialog";
 import "primeicons/primeicons.css";
@@ -164,6 +165,7 @@ function UsuarioCont() {
           excluir={excluir}
           onClickAtualizar={onClickAtualizar}
         />
+        <Login usuarios={usuarios} />
 
         <Toast ref={toastRef} />
       </div>
@@ -177,6 +179,10 @@ function UsuarioCont() {
           salvar={salvar}
           cancelar={cancelar}
         />
+        <Login usuario={usuario}
+          setUsuario={setUsuario}
+          salvar={salvar}
+          cancelar={cancelar} />
         <Toast ref={toastRef} />
       </div>
     );
