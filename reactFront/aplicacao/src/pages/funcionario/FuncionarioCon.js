@@ -59,7 +59,7 @@ function FuncionarioCont() {
     };
 
     const salvar = () => {
-        if (funcionario. funId == null) {
+        if (funcionario.funId == null) {
             // inclussão
 
             FuncionarioSrv.incluir(funcionario)
@@ -106,7 +106,7 @@ function FuncionarioCont() {
     };
 
     const editar = (id) => {
-        setFuncionario(funcionarios.filter((funcionario) => funcionario. funId === id)[0]);
+        setFuncionario(funcionarios.filter((funcionario) => funcionario.funId === id)[0]);
         setEditando(true);
     };
 

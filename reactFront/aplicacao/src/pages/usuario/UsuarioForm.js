@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { InputText } from "primereact/inputtext";
 import { Button } from "primereact/button";
 import { useForm } from "react-hook-form";
@@ -11,7 +11,7 @@ const UsuarioForm = (props) => {
     props.setUsuario({ ...props.usuario, [name]: value });
   };
 
-  const [contraSenha, setContraSenha] = useState();
+  //const [contraSenha, setContraSenha] = useState();
 
   const sexoSelect = [
     { label: "Masculino", value: "Masculino" },
@@ -22,7 +22,6 @@ const UsuarioForm = (props) => {
   const {
     register,
     handleSubmit,
-    setError,
     formState: { errors },
   } = useForm();
 

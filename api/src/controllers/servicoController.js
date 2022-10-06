@@ -13,30 +13,33 @@ exports.createServicos = async (req, res) => {
       message: verificador,
     });
   } else {
-  const { rows } = await db.query(
-    "INSERT INTO servicos (serNome, serValorServicoBase, serMaquinaId) VALUES ($1, $2, $3)",
-    [serNome, serValorServicoBase, serMaquinaId]
-  );
-  res.status(201).send({
-    message: "Serviço adicionado com sucesso!",
-    body: {
-      servicos: { serNome, serValorServicoBase, serMaquinaId },
-    },
-  });
-};
+    const { rows } = await db.query(
+      "INSERT INTO servicos (serNome, serValorServicoBase, serMaquinaId) VALUES ($1, $2, $3)",
+      [serNome, serValorServicoBase, serMaquinaId]
+    );
+    res.status(201).send({
+      message: "Serviço adicionado com sucesso!",
+      body: {
+        servicos: { serNome, serValorServicoBase, serMaquinaId },
+      },
+    });
+  }
 };
 exports.listAllServicos = async (req, res) => {
   const response = await db.query(
-    "SELECT * FROM servicos ORDER BY serNome ASC"
+    "SELECT servicos.serid,  servicos.sernome, servicos.servalorservicobase, maquinas.maqModelo as sermaquinaid " +
+      "from servicos  inner join maquinas on servicos.sermaquinaid = maquinas.maqid"
   );
   res.status(200).send(response.rows);
 };
 
 exports.findServicosById = async (req, res) => {
   const serid = parseInt(req.params.id);
-  const response = await db.query("SELECT * FROM servicos WHERE serid = $1", [
-    serid,
-  ]);
+  const response = await db.query(
+    "SELECT servicos.serid,  servicos.sernome, servicos.servalorservicobase, maquinas.maqModelo as sermaquinaid " +
+      "from servicos  inner join maquinas on servicos.sermaquinaid = maquinas.maqid WHERE serid = $1",
+    [serid]
+  );
   res.status(200).send(response.rows);
 };
 
@@ -54,13 +57,13 @@ exports.updateServicosById = async (req, res) => {
       message: verificador,
     });
   } else {
-  const response = await db.query(
-    "UPDATE servicos SET serNome = $1, serValorServicoBase = $2, serMaquinaId = $3 WHERE serid = $4",
-    [serNome, serValorServicoBase, serMaquinaId, serid]
-  );
+    const response = await db.query(
+      "UPDATE servicos SET serNome = $1, serValorServicoBase = $2, serMaquinaId = $3 WHERE serid = $4",
+      [serNome, serValorServicoBase, serMaquinaId, serid]
+    );
 
-  res.status(200).send({ message: "Serviço editado com sucesso!" });
-};
+    res.status(200).send({ message: "Serviço editado com sucesso!" });
+  }
 };
 exports.deleteServicosById = async (req, res) => {
   const serid = parseInt(req.params.id);

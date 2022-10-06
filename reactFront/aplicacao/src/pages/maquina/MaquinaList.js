@@ -1,8 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { Dropdown } from "primereact/dropdown";
+import maquinasPDF from "../../Relatorios/Maquinas/maquinas";
 
+const dateFormater = (rowData) => {
+  return new Intl.DateTimeFormat("pt-BR" , {
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  }).format(new Date(rowData.maqanofabricacao));
+};
 const template2 = {
     layout: 'RowsPerPageDropdown CurrentPageReport PrevPageLink NextPageLink',
     'RowsPerPageDropdown': (options) => {
@@ -56,13 +64,20 @@ const MaquinaList = (props) => {
       >
         Inserir
       </button>
+      <button
+        type="button"
+        className="btn btn-danger"
+        onClick={(e) => maquinasPDF(props.maquinas)}
+      >
+        Gerar PDF
+      </button>
       <div className="card">
         <DataTable value={props.maquinas} responsiveLayout="scroll" selectionMode="single" paginator paginatorTemplate={template2} rows={9} 
                     paginatorClassName="justify-content-center" className="mt-6">
           <Column field="maqmodelo" header="Modelo" sortable filter></Column>
           <Column field="maqmarca" header="Marca" sortable filter></Column>
           <Column field="maqtipocombustivel" header="Tipo Combustivel"  sortable filter ></Column>
-          <Column field="maqanofabricacao" header="Ano Fabricação" sortable filter></Column>
+          <Column body={dateFormater} header="Data Fabricação" sortable filter></Column>
           <Column field="maqnmrchassi" header="Número do Chassi" sortable filter></Column>
           <Column header="Operações" body={countryBodyTemplate}></Column>
         </DataTable>

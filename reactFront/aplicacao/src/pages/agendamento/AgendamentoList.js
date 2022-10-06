@@ -3,6 +3,13 @@ import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { Dropdown } from "primereact/dropdown";
 
+const dateFormater = (rowData) => {
+  return new Intl.DateTimeFormat("pt-BR" , {
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  }).format(new Date(rowData.agddata));
+};
 const template2 = {
     layout: 'RowsPerPageDropdown CurrentPageReport PrevPageLink NextPageLink',
     'RowsPerPageDropdown': (options) => {
@@ -60,7 +67,7 @@ const AgendamentoList = (props) => {
       <div className="card">
         <DataTable value={props.agendamentos} responsiveLayout="scroll" selectionMode="single" paginator paginatorTemplate={template2} rows={8} 
                     paginatorClassName="justify-content-center" className="mt-6">
-          <Column field="agddata" header="Data" sortable filter></Column>
+          <Column header="Data" body={dateFormater} sortable filter></Column>
           <Column field="agdfuncionario" header="Funcionarios" sortable filter></Column>
           <Column field="agdservico" header="Serviços" sortable filter></Column>
           <Column field="agdusuario" header="Usuarios" sortable filter></Column>
