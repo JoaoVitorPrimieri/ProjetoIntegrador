@@ -57,7 +57,7 @@ const UsuarioList = (props) => {
         Inserir
       </button>
       <div className="card">
-        <DataTable value={props.usuarios} responsiveLayout="scroll" selectionMode="single" paginator paginatorTemplate={template2} rows={8} 
+        <DataTable value={props.usuarios} responsiveLayout="scroll" selectionMode="single" paginator paginatorTemplate={template2} rows={5} 
                     paginatorClassName="justify-content-center" className="mt-6">
           <Column field="usunome" header="Nome" sortable filter></Column>
           <Column field="usuemail" header="E-mail" sortable filter></Column>

@@ -58,7 +58,7 @@ const ServicoList = (props) => {
         Inserir
       </button>
       <div className="card">
-        <DataTable value={props.servicos} responsiveLayout="scroll" selectionMode="single" paginator paginatorTemplate={template2} rows={8} 
+        <DataTable value={props.servicos} responsiveLayout="scroll" selectionMode="single" paginator paginatorTemplate={template2} rows={5} 
                     paginatorClassName="justify-content-center" className="mt-6">
           <Column field="sernome" header="Nome" sortable filter></Column>
           <Column field="servalorservicobase" header="Valor Base" sortable filter></Column>

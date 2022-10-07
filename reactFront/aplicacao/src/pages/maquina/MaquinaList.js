@@ -72,7 +72,7 @@ const MaquinaList = (props) => {
         Gerar PDF
       </button>
       <div className="card">
-        <DataTable value={props.maquinas} responsiveLayout="scroll" selectionMode="single" paginator paginatorTemplate={template2} rows={9} 
+        <DataTable value={props.maquinas} responsiveLayout="scroll" selectionMode="single" paginator paginatorTemplate={template2} rows={5} 
                     paginatorClassName="justify-content-center" className="mt-6">
           <Column field="maqmodelo" header="Modelo" sortable filter></Column>
           <Column field="maqmarca" header="Marca" sortable filter></Column>

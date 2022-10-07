@@ -11,7 +11,7 @@ const app = require('../app')
             usuCpf:"030.925.980-08",
             usuTelefone:"(54)99962-8219",
             usuEndereco:"parai",
-            usuSexo:null,
+            usuSexo:'Masculino',
             usuSenha:"123456"
         });
 

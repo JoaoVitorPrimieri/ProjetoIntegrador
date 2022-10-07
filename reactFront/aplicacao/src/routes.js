@@ -1,26 +1,40 @@
-import React from "react";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
-import Usuarios from "./pages/usuario";
-import Funcionarios from "./pages/funcionario";
-import Clientes from "./pages/cliente";
-import Maquinas from "./pages/maquina";
-import Servicos from "./pages/servico";
-import Agendamentos from "./pages/agendamento";
-import Inicio from "./pages/inicio";
+import React, { Suspense, lazy } from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Menu from "./Menu";
+import Rodape from "./Componentes/comp/rodape";
+// import Login from "./pages/login/indexx"
 
-export default function Routes() {
+const UsuarioCon = lazy(() => import("./pages/usuario/UsuarioCon"));
+const FuncionarioCon = lazy(() => import("./pages/funcionario/FuncionarioCon"));
+const ClienteCon = lazy(() => import("./pages/cliente/ClienteCon"));
+const MaquinaCon = lazy(() => import("./pages/maquina/MaquinaCon"));
+const ServicoCon = lazy(() => import("./pages/servico/ServicoCon"));
+const AgendamentoCon = lazy(() => import("./pages/agendamento/AgendamentoCon"));
+const Login = lazy(() => import("./pages/login/indexx"));
+
+function Rotas() {
   return (
-    <BrowserRouter>
-      <Switch>
-        <Route path="/" exact component={Inicio} />
-        <Route path="/usuarios" component={Usuarios} />
-        <Route path="/funcionarios" component={Funcionarios}/>
-        <Route path="/clientes" component={Clientes}/>
-        <Route path="/maquinas" component={Maquinas}/>
-        <Route path="/servicos" component={Servicos}/>
-        <Route path="/agendamentos" component={Agendamentos}/>
+    <div>
+      {/* <Login /> */}
+      <BrowserRouter>  
+        <Suspense fallback={<div>Carregando ...</div>}>
+        <Menu />
+          <Routes>
+            {/* <Route path="/" element={<LoginPage/>} /> */}
+            <Route exact path="/login" element={<Login />} />
+            <Route path="/usuarios" element={<UsuarioCon />} />
+            <Route path="/funcionarios" element={<FuncionarioCon />} />
+            <Route path="/clientes" element={<ClienteCon />} />
+            <Route path="/maquinas" element={<MaquinaCon />} />
+            <Route path="/servicos" element={<ServicoCon />} />
+            <Route path="/agendamentos" element={<AgendamentoCon />} />
+          </Routes>
+          <Rodape />
+        </Suspense>
         
-      </Switch>
-    </BrowserRouter>
+      </BrowserRouter>
+    </div>
   );
 }
+
+export default Rotas;

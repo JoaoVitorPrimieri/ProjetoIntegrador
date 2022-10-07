@@ -1,106 +1,130 @@
+import * as React from "react";
+import Avatar from "@mui/material/Avatar";
+import Button from "@mui/material/Button";
+import CssBaseline from "@mui/material/CssBaseline";
+import TextField from "@mui/material/TextField";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Checkbox from "@mui/material/Checkbox";
+import Link from "@mui/material/Link";
+import Paper from "@mui/material/Paper";
+import Box from "@mui/material/Box";
+import Grid from "@mui/material/Grid";
+// import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import Typography from "@mui/material/Typography";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 
-// import React from "react";
-// import '../../Componentes/css/indexLogin.css'
+function Copyright(props) {
+  return (
+    <Typography
+      variant="body2"
+      color="text.secondary"
+      align="center"
+      {...props}
+    >
+      {"Copyright © "}
+      <Link color="inherit" href="https://mui.com/">
+        Your Website
+      </Link>{" "}
+      {new Date().getFullYear()}
+      {"."}
+    </Typography>
+  );
+}
 
-// function Login() {
-//     // const signUpButton = document.getElementById('signUp');
-//     // const signInButton = document.getElementById('signIn');
-//     // const container = document.getElementById('container');
-    
-//     // signUpButton.addEventListener('click', () => {
-//     //     container.classList.add("right-panel-active");
-//     // });
-    
-//     // signInButton.addEventListener('click', () => {
-//     //     container.classList.remove("right-panel-active");
-//     // });
+const theme = createTheme();
 
-//   return (
-//     <div>
-//       <h2>Weekly Coding Challenge #1: Sign in/up Form</h2>
-//       <div class="container" id="container">
-//         <div class="form-container sign-up-container">
-//           <form action="#">
-//             <h1>Create Account</h1>
-//             <div class="social-container">
-//               <a href="#" class="social">
-//                 <i class="fab fa-facebook-f"></i>
-//               </a>
-//               <a href="#" class="social">
-//                 <i class="fab fa-google-plus-g"></i>
-//               </a>
-//               <a href="#" class="social">
-//                 <i class="fab fa-linkedin-in"></i>
-//               </a>
-//             </div>
-//             <span>or use your email for registration</span>
-//             <input type="text" placeholder="Name" />
-//             <input type="email" placeholder="Email" />
-//             <input type="password" placeholder="Password" />
-//             <button>Sign Up</button>
-//           </form>
-//         </div>
-//         <div class="form-container sign-in-container">
-//           <form action="#">
-//             <h1>Sign in</h1>
-//             <div class="social-container">
-//               <a href="#" class="social">
-//                 <i class="fab fa-facebook-f"></i>
-//               </a>
-//               <a href="#" class="social">
-//                 <i class="fab fa-google-plus-g"></i>
-//               </a>
-//               <a href="#" class="social">
-//                 <i class="fab fa-linkedin-in"></i>
-//               </a>
-//             </div>
-//             <span>or use your account</span>
-//             <input type="email" placeholder="Email" />
-//             <input type="password" placeholder="Password" />
-//             <a href="#">Forgot your password?</a>
-//             <button>Sign In</button>
-//           </form>
-//         </div>
-//         <div class="overlay-container">
-//           <div class="overlay">
-//             <div class="overlay-panel overlay-left">
-//               <h1>Welcome Back!</h1>
-//               <p>
-//                 To keep connected with us please login with your personal info
-//               </p>
-//               <button class="ghost" id="signIn">
-//                 Sign In
-//               </button>
-//             </div>
-//             <div class="overlay-panel overlay-right">
-//               <h1>Hello, Friend!</h1>
-//               <p>Enter your personal details and start journey with us</p>
-//               <button class="ghost" id="signUp">
-//                 Sign Up
-//               </button>
-//             </div>
-//           </div>
-//         </div>
-//       </div>
+export default function SignInSide() {
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const data = new FormData(event.currentTarget);
+    console.log({
+      email: data.get("email"),
+      password: data.get("password"),
+    });
+  };
 
-//       <footer>
-//         <p>
-//           Created with <i class="fa fa-heart"></i> by
-//           <a target="_blank" href="https://florin-pop.com">
-//             Florin Pop
-//           </a>
-//           - Read how I created this and how you can join the challenge
-//           <a
-//             target="_blank"
-//             href="https://www.florin-pop.com/blog/2019/03/double-slider-sign-in-up-form/"
-//           >
-//             here
-//           </a>
-//           .
-//         </p>
-//       </footer>
-//     </div>
-//   );
-// }
+  return (
+    <ThemeProvider theme={theme}>
+      <Grid container component="main" sx={{ height: "100vh" }}>
+        <CssBaseline />
+        <Grid
+          item
+          xs={false}
+          sm={4}
+          md={7}
+          sx={{
+            backgroundImage: "url(https://source.unsplash.com/random)",
+            backgroundRepeat: "no-repeat",
+            backgroundColor: (t) =>
+              t.palette.mode === "light"
+                ? t.palette.grey[50]
+                : t.palette.grey[900],
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+          }}
+        />
+        <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+          <Box
+            sx={{
+              my: 8,
+              mx: 4,
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+            }}
+          >
+            <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+              {/* <LockOutlinedIcon /> */}
+            </Avatar>
+            <Typography component="h1" variant="h5">
+              Sign in
+            </Typography>
+            <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
 
-// export default Login;
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                id="email"
+                label="Email Address"
+                name="email"
+                autoComplete="email"
+                autoFocus
+              />
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                name="password"
+                label="Password"
+                type="password"
+                id="password"
+                autoComplete="current-password"
+              />
+              <FormControlLabel
+                control={<Checkbox value="remember" color="primary" />}
+                label="Remember me"
+              />
+              <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
+                Sign In
+              </Button>
+              <Grid container>
+                <Grid item xs>
+                  <Link href="#" variant="body2">
+                    Forgot password?
+                  </Link>
+                </Grid>
+                <Grid item>
+                  <Link href="#" variant="body2">
+                    {"Don't have an account? Sign Up"}
+                  </Link>
+                </Grid>
+              </Grid>
+              <Copyright sx={{ mt: 5 }} />
+            </Box>
+          </Box>
+        </Grid>
+      </Grid>
+    </ThemeProvider>
+  );
+}

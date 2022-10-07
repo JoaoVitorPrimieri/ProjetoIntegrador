@@ -89,7 +89,7 @@ const FuncionarioList = (props) => {
             selectionMode="single"
             paginator
             paginatorTemplate={template2}
-            rows={8}
+            rows={5}
             paginatorClassName="justify-content-center"
             className="mt-6"
           >
