@@ -15,7 +15,6 @@ const Login = lazy(() => import("./pages/login/indexx"));
 function Rotas() {
   return (
     <div>
-      {/* <Login /> */}
       <BrowserRouter>  
         <Suspense fallback={<div>Carregando ...</div>}>
         <Menu />

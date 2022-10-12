@@ -8,13 +8,6 @@ import "primeflex/primeflex.css";
 import Rotas from "./routes";
 
 function App() {
-  // const [token, setToken] = useState([])
-  // useEffect(() => {
-  // setToken(sessionStorage.getItem('token'));
-  // }, []);
-  // if (!token) {
-  // return <LoginForm/>
-  // }
 
   return (
     <div className="app">

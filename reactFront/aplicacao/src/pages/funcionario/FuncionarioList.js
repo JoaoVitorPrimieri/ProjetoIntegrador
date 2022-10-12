@@ -2,6 +2,7 @@ import React from "react";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { Dropdown } from "primereact/dropdown";
+import funcionariosPDF from "../../Relatorios/Funcionarios/funcionarios";
 
 const template2 = {
   layout: "RowsPerPageDropdown CurrentPageReport PrevPageLink NextPageLink",
@@ -82,6 +83,13 @@ const FuncionarioList = (props) => {
         >
           Inserir
         </button>
+        <button
+        type="button"
+        className="btn btn-danger"
+        onClick={(e) => funcionariosPDF(props.funcionarios)}
+      >
+        Gerar PDF
+      </button>
         <div className="card">
           <DataTable
             value={props.funcionarios}

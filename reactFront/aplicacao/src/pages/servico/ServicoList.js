@@ -2,7 +2,7 @@ import React from "react";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { Dropdown } from "primereact/dropdown";
-
+import servicosPDF from "../../Relatorios/Servicos/servicos";
 const template2 = {
     layout: 'RowsPerPageDropdown CurrentPageReport PrevPageLink NextPageLink',
     'RowsPerPageDropdown': (options) => {
@@ -57,12 +57,19 @@ const ServicoList = (props) => {
       >
         Inserir
       </button>
+      <button
+        type="button"
+        className="btn btn-danger"
+        onClick={(e) => servicosPDF(props.servicos)}
+      >
+        Gerar PDF
+      </button>
       <div className="card">
         <DataTable value={props.servicos} responsiveLayout="scroll" selectionMode="single" paginator paginatorTemplate={template2} rows={5} 
                     paginatorClassName="justify-content-center" className="mt-6">
           <Column field="sernome" header="Nome" sortable filter></Column>
           <Column field="servalorservicobase" header="Valor Base" sortable filter></Column>
-          <Column field="sermaquinaid" header="Maquina"  sortable filter ></Column>
+          <Column field="sermaquinaid" header="Maquina Alocada"  sortable filter ></Column>
           <Column header="Operações" body={countryBodyTemplate}></Column>
         </DataTable>
       </div>

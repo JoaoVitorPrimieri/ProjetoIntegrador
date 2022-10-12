@@ -2,6 +2,7 @@ import React from "react";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { Dropdown } from "primereact/dropdown";
+import clientesPDF from "../../Relatorios/Clientes/clientes";
 
 const template2 = {
     layout: 'RowsPerPageDropdown CurrentPageReport PrevPageLink NextPageLink',
@@ -55,6 +56,13 @@ const ClienteList = (props) => {
         onClick={props.inserir}
       >
         Inserir
+      </button>
+      <button
+        type="button"
+        className="btn btn-danger"
+        onClick={(e) => clientesPDF(props.clientes)}
+      >
+        Gerar PDF
       </button>
       <div className="card">
         <DataTable value={props.clientes} responsiveLayout="scroll" selectionMode="single" paginator paginatorTemplate={template2} rows={5} 
