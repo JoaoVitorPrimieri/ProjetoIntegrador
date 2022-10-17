@@ -27,4 +27,5 @@ class ClienteSrv {
     }
 
 }
+
 export default new ClienteSrv();

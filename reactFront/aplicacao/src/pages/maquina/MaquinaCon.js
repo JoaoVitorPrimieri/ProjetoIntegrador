@@ -11,19 +11,9 @@ import "primereact/resources/primereact.css";
 import "primeflex/primeflex.css";
 
 function MaquinaCont() {
-  const [maquinas, setMaquinas] = useState([]);
   const toastRef = useRef();
-  const initialState = {
-    maqId: null,
-    maqModelo: "",
-    maqMarca: "",
-    maqTipoCombustivel: "",
-    maqAnoFabricacao: "",
-    maqnmrChassi: "",
-  };
-  const [maquina, setMaquina] = useState(initialState);
-  const [editando, setEditando] = useState(false);
 
+  const [maquinas, setMaquinas] = useState([]);
   useEffect(() => {
     onClickAtualizar(); // ao inicializar execula método para atualizar
   }, []);
@@ -47,27 +37,30 @@ function MaquinaCont() {
       });
   };
 
+  const initialState = {
+    maqid: null,
+    maqmodelo: "",
+    maqmarca: "",
+    maqtipocombustivel: "",
+    maqanofabricacao: "",
+    maqnmrchassi: "",
+  };
+
+  const [maquina, setMaquina] = useState(initialState);
+  const [editando, setEditando] = useState(false);
 
   const inserir = () => {
+    setMaquina(initialState);
     setEditando(true);
   };
 
-  const cancelar = () => {
-    console.log("Cancelou ...");
-    setEditando(false);
-    setMaquina(initialState);
-  };
-
   const salvar = () => {
-    if (maquina.maqId == null) {
+    if (maquina.maqid == null) {
       // inclussão
       MaquinaSrv.incluir(maquina)
         .then((response) => {
           setEditando(false);
           onClickAtualizar();
-          console.log("Incluiu ...");
-          setMaquina(initialState);
-
           toastRef.current.show({
             severity: "success",
             summary: "Salvou",
@@ -87,9 +80,6 @@ function MaquinaCont() {
         .then((response) => {
           setEditando(false);
           onClickAtualizar();
-          console.log("Alterou ...");
-          setMaquina(initialState);
-
           toastRef.current.show({
             severity: "success",
             summary: "Salvou",
@@ -105,14 +95,16 @@ function MaquinaCont() {
         });
     }
   };
+  const cancelar = () => {
+    setEditando(false);
+  };
 
   const editar = (id) => {
-    setMaquina(maquinas.filter((maquina) => maquina.maqId === id)[0]);
-    console.log(maquinas.filter((maquina) => maquina.maqId === id)[0]);
+    setMaquina(maquinas.filter((maquina) => maquina.maqid === id)[0]);
     setEditando(true);
   };
 
-  const excluir = (maqId) => {
+  const excluir = (maqid) => {
     confirmDialog({
       message: "Confirma a exclusão?",
       header: "Confirmação",
@@ -120,12 +112,12 @@ function MaquinaCont() {
       acceptLabel: "Sim",
       rejectLabel: "Não",
       acceptClassName: "p-button-danger",
-      accept: () => excluirConfirm(maqId),
+      accept: () => excluirConfirm(maqid),
     });
   };
 
-  const excluirConfirm = (maqId) => {
-    MaquinaSrv.excluir(maqId)
+  const excluirConfirm = (maqid) => {
+    MaquinaSrv.excluir(maqid)
       .then((response) => {
         onClickAtualizar();
         toastRef.current.show({
@@ -150,10 +142,10 @@ function MaquinaCont() {
         <ConfirmDialog />
         <MaquinaList
           maquinas={maquinas}
+          onClickAtualizar={onClickAtualizar}
           inserir={inserir}
           editar={editar}
           excluir={excluir}
-          onClickAtualizar={onClickAtualizar}
         />
 
         <Toast ref={toastRef} />

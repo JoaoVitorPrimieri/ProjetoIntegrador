@@ -15,9 +15,9 @@ const Login = lazy(() => import("./pages/login/indexx"));
 function Rotas() {
   return (
     <div>
-      <BrowserRouter>  
+      <BrowserRouter>
         <Suspense fallback={<div>Carregando ...</div>}>
-        <Menu />
+          <Menu />
           <Routes>
             {/* <Route path="/" element={<LoginPage/>} /> */}
             <Route exact path="/login" element={<Login />} />
@@ -30,7 +30,6 @@ function Rotas() {
           </Routes>
           <Rodape />
         </Suspense>
-        
       </BrowserRouter>
     </div>
   );

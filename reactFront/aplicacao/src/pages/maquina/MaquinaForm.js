@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { InputText } from "primereact/inputtext";
 import { Button } from "primereact/button";
 import { useForm } from "react-hook-form";
@@ -10,6 +10,14 @@ const MaquinaForm = (props) => {
     const { name, value } = event.target;
     props.setMaquina({ ...props.maquina, [name]: value });
   };
+
+  const [maqAnoFabricacaoMask, setMaqAnoFabricacaoMask] = useState(
+    props.maquina.maqanofabricacao
+  );
+  const [maqnmrChassiMask, setMaqnmrChassiMask] = useState(
+    props.maquina.maqnmrchassi
+  );
+
   const combustivelSelect = [
     { label: "Diesel", value: "Diesel" },
     { label: "Álcool", value: "Álcool" },
@@ -30,14 +38,14 @@ const MaquinaForm = (props) => {
     <form onSubmit={handleSubmit(onSubmit)}>
       <div style={{ padding: 15 }}>
         <div className="card">
-          <h5>Cadastro de Usuarios</h5>
+          <h5>Cadastro de Maquinas</h5>
           <div style={{ marginLeft: "33em" }}>
             <div className="p-fluid grid formgrid">
               <div className="field col-12 md:col-4">
-                <label htmlFor="maqModelo">Modelo</label>
+                <label htmlFor="maqmodelo">Modelo</label>
                 <InputText
-                  name="maqModelo"
-                  {...register("maqModelo", {
+                  name="maqmodelo"
+                  {...register("maqmodelo", {
                     required: {
                       value: true,
                       message: "O modelo é obrigatório!",
@@ -51,22 +59,22 @@ const MaquinaForm = (props) => {
                       message: "O modelo pode ter no mínimo 2 caracteres!",
                     },
                   })}
-                  defaultValue={props.maquina.maqModelo}
+                  defaultValue={props.maquina.maqmodelo}
                   onChange={handleInputChange}
                 />
-                {errors.maqModelo && (
+                {errors.maqmodelo && (
                   <span style={{ color: "red" }}>
-                    {errors.maqModelo.message}
+                    {errors.maqmodelo.message}
                   </span>
                 )}
               </div>
             </div>
             <div className="p-fluid grid formgrid">
               <div className="field col-12 md:col-4">
-                <label htmlFor="maqMarca">Marca</label>
+                <label htmlFor="maqmarca">Marca</label>
                 <InputText
-                  name="maqMarca"
-                  {...register("maqMarca", {
+                  name="maqmarca"
+                  {...register("maqmarca", {
                     required: {
                       value: true,
                       message: "A marca é obrigatório!",
@@ -76,32 +84,32 @@ const MaquinaForm = (props) => {
                       message: "A marca pode ter no máximo 100 caracteres!",
                     },
                     minLength: {
-                      value: 10,
+                      value: 3,
                       message: "A marca deve ter no mínimo 10 caracteres!",
                     },
                   })}
-                  defaultValue={props.maquina.maqMarca}
+                  defaultValue={props.maquina.maqmarca}
                   onChange={handleInputChange}
                 />
-                {errors.maqMarca && (
+                {errors.maqmarca && (
                   <span style={{ color: "red" }}>
-                    {errors.maqMarca.message}
+                    {errors.maqmarca.message}
                   </span>
                 )}
               </div>
             </div>
             <div className="p-fluid gridF formgrid">
               <div className="field col-12 md:col-4">
-                <label htmlFor="maqTipoCombustivel">Tipo do Combustivel</label>
+                <label htmlFor="maqtipocombustivel">Tipo do Combustivel</label>
 
                 <Dropdown
                   options={combustivelSelect}
-                  name="maqTipoCombustivel"
-                  value={props.maquina.maqTipoCombustivel}
+                  name="maqtipocombustivel"
+                  value={props.maquina.maqtipocombustivel}
                   onChange={(handleInputChange) =>
                     props.setMaquina((maquina) => ({
                       ...maquina,
-                      maqTipoCombustivel: handleInputChange.value,
+                      maqtipocombustivel: handleInputChange.value,
                     }))
                   }
                   placeholder="Selecione"
@@ -111,17 +119,23 @@ const MaquinaForm = (props) => {
             </div>
             <div className="p-fluid gridF formgrid">
               <div className="field col-12 md:col-4">
-                <label htmlFor="maqAnoFabricacao">Data Fabricação</label>
+                <label htmlFor="maqanofabricacao">Data Fabricação</label>
                 <div>
                   <InputMask
-                    name="maqAnoFabricacao"
+                    name="maqanofabricacao"
                     mask="99/99/9999"
-                    defaultValue={props.maquina.maqAnoFabricacao}
-                    onChange={handleInputChange}
+                    value={maqAnoFabricacaoMask}
+                    onChange={(e) => {
+                      setMaqAnoFabricacaoMask(e.value);
+                      props.setMaquina({
+                        ...props.maquina,
+                        maqanofabricacao: e.value,
+                      });
+                    }}
                   />
-                  {errors.maqAnoFabricacao && (
+                  {errors.maqanofabricacao && (
                     <span style={{ color: "red" }}>
-                      {errors.maqAnoFabricacao.message}
+                      {errors.maqanofabricacao.message}
                     </span>
                   )}
                 </div>
@@ -129,17 +143,23 @@ const MaquinaForm = (props) => {
             </div>
             <div className="p-fluid gridF formgrid">
               <div className="field col-12 md:col-4">
-                <label htmlFor="maqnmrChassi">Número do Chassi</label>
+                <label htmlFor="maqnmrchassi">Número do Chassi</label>
                 <div>
                   <InputMask
-                    name="maqnmrChassi"
+                    name="maqnmrchassi"
                     mask="999-999999-99-999999"
-                    defaultValue={props.maquina.maqnmrChassi}
-                    onChange={handleInputChange}
+                    value={maqnmrChassiMask}
+                    onChange={(e) => {
+                      setMaqnmrChassiMask(e.value);
+                      props.setMaquina({
+                        ...props.maquina,
+                        maqnmrchassi: e.value,
+                      });
+                    }}
                   />
-                  {errors.maqnmrChassi && (
+                  {errors.maqnmrchassi && (
                     <span style={{ color: "red" }}>
-                      {errors.maqnmrChassi.message}
+                      {errors.maqnmrchassi.message}
                     </span>
                   )}
                 </div>
