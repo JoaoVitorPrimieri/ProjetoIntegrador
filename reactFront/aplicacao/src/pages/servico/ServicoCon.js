@@ -12,17 +12,12 @@ import "primereact/resources/primereact.css";
 import "primeflex/primeflex.css";
 
 function ServicoCont() {
+  const toastRef = useRef();
 
-    const [maquinas, setMaquinas] = useState([]);
-    const [servicos, setServicos] = useState([]);
-    const toastRef = useRef();
-    const initialState = { serId: null, serNome: '', serValorServicoBase: '', serMaquinaId: ''}
-    const [servico, setServico] = useState(initialState)
-    const [editando, setEditando] = useState(false)
-  
-    useEffect(() => {
-      onClickAtualizar(); // ao inicializar execula método para atualizar
-      MaquinaSrv.listar()
+  const [maquinas, setMaquinas] = useState([]);
+  useEffect(() => {
+    onClickAtualizar(); // ao inicializar execula método para atualizar
+    MaquinaSrv.listar()
       .then((response) => {
         setMaquinas(response.data);
         toastRef.current.show({
@@ -38,122 +33,150 @@ function ServicoCont() {
           life: 3000,
         });
       });
-    }, []);
-  
-    const onClickAtualizar = () => {
-        ServicoSrv.listar()
+  }, []);
+  const [servicos, setServicos] = useState([]);
+  const onClickAtualizar = () => {
+    ServicoSrv.listar()
+      .then((response) => {
+        setServicos(response.data);
+        toastRef.current.show({
+          severity: "success",
+          summary: "Serviço atualizado",
+          life: 3000,
+        });
+      })
+      .catch((e) => {
+        toastRef.current.show({
+          severity: "error",
+          summary: e.message,
+          life: 3000,
+        });
+      });
+  };
+  const initialState = {
+    serid: null,
+    sernome: "",
+    servalorservicobase: "",
+    sermaquinaid: "",
+  };
+  const [servico, setServico] = useState(initialState);
+  const [editando, setEditando] = useState(false);
+
+  const inserir = () => {
+    setServico(initialState);
+    setEditando(true);
+  };
+
+  const salvar = () => {
+    if (servico.serid == null) {
+      // inclussão
+      ServicoSrv.incluir(servico)
         .then((response) => {
-          setServicos(response.data);
+          setEditando(false);
+          onClickAtualizar();
           toastRef.current.show({
             severity: "success",
-            summary: "Serviço atualizado",
-            life: 3000,
+            summary: "Salvou",
+            life: 2000,
           });
         })
         .catch((e) => {
           toastRef.current.show({
             severity: "error",
             summary: e.message,
-            life: 3000,
+            life: 4000,
           });
         });
-    };
-  
-  
-  
-    const inserir = () => {
-      setServico(initialState);
-      setEditando(true);
-    }
-    const cancelar = () => {
-      setEditando(false);
-    }
-    const salvar = () => {
-      if (servico.serId == null) { // inclussão
-        ServicoSrv.incluir(servico).then(response => {
+    } else {
+      // alteração
+      ServicoSrv.alterar(servico)
+        .then((response) => {
           setEditando(false);
           onClickAtualizar();
-          toastRef.current.show({ severity: 'success', summary: "Salvou", life: 2000 });
-        })
-          .catch(e => {
-            toastRef.current.show({ severity: 'error', summary: e.message, life: 4000 });
+          toastRef.current.show({
+            severity: "success",
+            summary: "Salvou",
+            life: 2000,
           });
-      } else { // alteração
-        ServicoSrv.alterar(servico).then(response => {
-          setEditando(false);
-          onClickAtualizar();
-          toastRef.current.show({ severity: 'success', summary: "Salvou", life: 2000 });
         })
-          .catch(e => {
-            toastRef.current.show({ severity: 'error', summary: e.message, life: 4000 });
+        .catch((e) => {
+          toastRef.current.show({
+            severity: "error",
+            summary: e.message,
+            life: 4000,
           });
-      }
+        });
     }
-  
-    const editar = (id) => {
-      setServico(servicos.filter((servico) => servico.serId === id)[0]);
-      setEditando(true);
-    }
-  
-    const excluir = (serId) => {
-      confirmDialog({
-        message: 'Confirma a exclusão?',
-        header: 'Confirmação',
-        icon: 'pi pi-question',
-        acceptLabel: 'Sim',
-        rejectLabel: 'Não',
-        acceptClassName: 'p-button-danger',
-        accept: () => excluirConfirm(serId)
-      });
-    }
-  
-    const excluirConfirm = (serId) => {
-  
-      ServicoSrv.excluir(serId).then(response => {
+  };
+  const cancelar = () => {
+    setEditando(false);
+  };
+
+  const editar = (id) => {
+    setServico(servicos.filter((servico) => servico.serid === id)[0]);
+    setEditando(true);
+  };
+
+  const excluir = (serid) => {
+    confirmDialog({
+      message: "Confirma a exclusão?",
+      header: "Confirmação",
+      icon: "pi pi-question",
+      acceptLabel: "Sim",
+      rejectLabel: "Não",
+      acceptClassName: "p-button-danger",
+      accept: () => excluirConfirm(serid),
+    });
+  };
+
+  const excluirConfirm = (serid) => {
+    ServicoSrv.excluir(serid)
+      .then((response) => {
         onClickAtualizar();
         toastRef.current.show({
-          severity: 'success',
-          summary: "Excluído", life: 2000
+          severity: "success",
+          summary: "Excluído",
+          life: 2000,
         });
       })
-        .catch(e => {
-          toastRef.current.show({
-            severity: 'error',
-            summary: e.message, life: 4000
-          });
+      .catch((e) => {
+        toastRef.current.show({
+          severity: "error",
+          summary: e.message,
+          life: 4000,
         });
-    }
-  
-    if (!editando) {
-      return (
-        <div className="App">
-          <Toast ref={toastRef} />
-          <ConfirmDialog />
-          <ServicoList
-            servicos={servicos}
-            inserir={inserir}
-            editar={editar}
-            excluir={excluir} 
-            onClickAtualizar={onClickAtualizar}
-            />
-          <Toast ref={toastRef} />
-  
-        </div>
-      );  
-    } else {
-      return (
-        <div className="App">
-          <ServicoForm
-            servico={servico}
-            maquinas={maquinas}
-            setServico={setServico}
-            salvar={salvar}
-            cancelar={cancelar} />
-          <Toast ref={toastRef} />
-  
-        </div>
-      );
-    }
+      });
+  };
+
+  if (!editando) {
+    return (
+      <div className="App">
+        <Toast ref={toastRef} />
+        <ConfirmDialog />
+        <ServicoList
+          servicos={servicos}
+          inserir={inserir}
+          editar={editar}
+          excluir={excluir}
+          onClickAtualizar={onClickAtualizar}
+        />
+        <Toast ref={toastRef} />
+      </div>
+    );
+  } else {
+    return (
+      <div className="App">
+        <ServicoForm
+          servico={servico}
+          maquinas={maquinas}
+          setServico={setServico}
+          salvar={salvar}
+          cancelar={cancelar}
+        />
+        <Toast ref={toastRef} />
+      </div>
+    );
   }
-  
-  export default ServicoCont;
+}
+
+export default ServicoCont;

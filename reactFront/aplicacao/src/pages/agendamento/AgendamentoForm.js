@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button } from "primereact/button";
 import { useForm } from "react-hook-form";
 import { Dropdown } from "primereact/dropdown";
@@ -9,6 +9,10 @@ const AgendamentoForm = (props) => {
     const { name, value } = event.target;
     props.setAgendamento({ ...props.agendamento, [name]: value });
   };
+
+  const [agdDataMask, setagdDataMask] = useState(props.agendamento.agddata);
+
+  const [agdHorasMask, setagdHorasMask] = useState(props.agendamento.agdhoras);
 
   const {
     handleSubmit,
@@ -27,17 +31,23 @@ const AgendamentoForm = (props) => {
           <div style={{ marginLeft: "33em" }}>
             <div className="p-fluid gridF formgrid">
               <div className="field col-12 md:col-4">
-                <label htmlFor="agdData">Data Agendamento</label>
+                <label htmlFor="agddata">Data Agendamento</label>
                 <div>
                   <InputMask
-                    name="agdData"
+                    name="agddata"
                     mask="99/99/9999"
-                    defaultValue={props.agendamento.agdData}
-                    onChange={handleInputChange}
+                    value={agdDataMask}
+                    onChange={(e) => {
+                      setagdDataMask(e.value);
+                      props.setAgendamento({
+                        ...props.agendamento,
+                        agddata: e.value,
+                      });
+                    }}
                   />
-                  {errors.agdData && (
+                  {errors.agddata && (
                     <span style={{ color: "red" }}>
-                      {errors.agdData.message}
+                      {errors.agddata.message}
                     </span>
                   )}
                 </div>
@@ -45,15 +55,15 @@ const AgendamentoForm = (props) => {
             </div>
             <div className="p-fluid grid formgrid">
               <div className="field col-12 md:col-4">
-                <label htmlFor="agdFuncionario">Funcionário:</label>
+                <label htmlFor="agdfuncionario">Funcionário:</label>
                 <Dropdown
-                  name="agdFuncionario"
-                  value={props.agendamento.agdFuncionario}
+                  name="agdfuncionario"
+                  value={props.agendamento.agdfuncionario}
                   options={props.funcionarios}
                   onChange={(handleInputChange) =>
                     props.setAgendamento((agendamento) => ({
                       ...agendamento,
-                      agdFuncionario: handleInputChange.value,
+                      agdfuncionario: handleInputChange.value,
                     }))
                   }
                   optionLabel="funnome"
@@ -64,15 +74,15 @@ const AgendamentoForm = (props) => {
             </div>
             <div className="p-fluid grid formgrid">
               <div className="field col-12 md:col-4">
-                <label htmlFor="agdServico">Serviço:</label>
+                <label htmlFor="agdservico">Serviço:</label>
                 <Dropdown
-                  name="agdServico"
-                  value={props.agendamento.agdServico}
+                  name="agdservico"
+                  value={props.agendamento.agdservico}
                   options={props.servicos}
                   onChange={(handleInputChange) =>
                     props.setAgendamento((agendamento) => ({
                       ...agendamento,
-                      agdServico: handleInputChange.value,
+                      agdservico: handleInputChange.value,
                     }))
                   }
                   optionLabel="sernome"
@@ -83,15 +93,15 @@ const AgendamentoForm = (props) => {
             </div>
             <div className="p-fluid grid formgrid">
               <div className="field col-12 md:col-4">
-                <label htmlFor="agdUsuario">Usuario:</label>
+                <label htmlFor="agdusuario">Usuario:</label>
                 <Dropdown
-                  name="agdUsuario"
-                  value={props.agendamento.agdUsuario}
+                  name="agdusuario"
+                  value={props.agendamento.agdusuario}
                   options={props.usuarios}
                   onChange={(handleInputChange) =>
                     props.setAgendamento((agendamento) => ({
                       ...agendamento,
-                      agdUsuario: handleInputChange.value,
+                      agdusuario: handleInputChange.value,
                     }))
                   }
                   optionLabel="usunome"
@@ -102,15 +112,15 @@ const AgendamentoForm = (props) => {
             </div>
             <div className="p-fluid grid formgrid">
               <div className="field col-12 md:col-4">
-                <label htmlFor="agdCliente">Cliente:</label>
+                <label htmlFor="agdcliente">Cliente:</label>
                 <Dropdown
-                  name="agdCliente"
-                  value={props.agendamento.agdCliente}
+                  name="agdcliente"
+                  value={props.agendamento.agdcliente}
                   options={props.clientes}
                   onChange={(handleInputChange) =>
                     props.setAgendamento((agendamento) => ({
                       ...agendamento,
-                      agdCliente: handleInputChange.value,
+                      agdcliente: handleInputChange.value,
                     }))
                   }
                   optionLabel="clinome"
@@ -121,17 +131,23 @@ const AgendamentoForm = (props) => {
             </div>
             <div className="p-fluid gridF formgrid">
               <div className="field col-12 md:col-4">
-                <label htmlFor="agdqtdHoras">Horas Agendamento</label>
+                <label htmlFor="agdqtdhoras">Horas Agendamento</label>
                 <div>
                   <InputMask
-                    name="agdqtdHoras"
+                    name="agdqtdhoras"
                     mask="99:99"
-                    defaultValue={props.agendamento.agdqtdHoras}
-                    onChange={handleInputChange}
+                    value={agdHorasMask}
+                    onChange={(e) => {
+                      setagdHorasMask(e.value);
+                      props.setAgendamento({
+                        ...props.agendamento,
+                        agdqtdhoras: e.value,
+                      });
+                    }}
                   />
-                  {errors.agdqtdHoras && (
+                  {errors.agdqtdhoras && (
                     <span style={{ color: "red" }}>
-                      {errors.agdqtdHoras.message}
+                      {errors.agdqtdhoras.message}
                     </span>
                   )}
                 </div>

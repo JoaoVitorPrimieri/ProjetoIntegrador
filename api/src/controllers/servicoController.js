@@ -2,11 +2,11 @@ const db = require("../config/database");
 const VerificarEmpty = require("../validacoes/verificaEmpty");
 
 exports.createServicos = async (req, res) => {
-  const { serNome, serValorServicoBase, serMaquinaId } = req.body;
+  const { sernome, servalorservicobase, sermaquinaid } = req.body;
   const verificador = VerificarEmpty([
-    { nome: "Nome", valor: serNome },
-    { nome: "Valor do serviço", valor: serValorServicoBase },
-    { nome: "Id da maquina", valor: serMaquinaId },
+    { nome: "Nome", valor: sernome },
+    { nome: "Valor do serviço", valor: servalorservicobase },
+    { nome: "Id da maquina", valor: sermaquinaid },
   ]);
   if (verificador) {
     res.status(500).send({
@@ -14,13 +14,13 @@ exports.createServicos = async (req, res) => {
     });
   } else {
     const { rows } = await db.query(
-      "INSERT INTO servicos (serNome, serValorServicoBase, serMaquinaId) VALUES ($1, $2, $3)",
-      [serNome, serValorServicoBase, serMaquinaId]
+      "INSERT INTO servicos (sernome, servalorservicobase, sermaquinaid) VALUES ($1, $2, $3)",
+      [sernome, servalorservicobase, sermaquinaid]
     );
     res.status(201).send({
       message: "Serviço adicionado com sucesso!",
       body: {
-        servicos: { serNome, serValorServicoBase, serMaquinaId },
+        servicos: { sernome, servalorservicobase, sermaquinaid },
       },
     });
   }
@@ -45,12 +45,12 @@ exports.findServicosById = async (req, res) => {
 
 exports.updateServicosById = async (req, res) => {
   const serid = parseInt(req.params.id);
-  const { serNome, serValorServicoBase, serMaquinaId } = req.body;
+  const { sernome, servalorservicobase, sermaquinaid } = req.body;
   const verificador = VerificarEmpty([
     { nome: "Id", valor: serid },
-    { nome: "Nome", valor: serNome },
-    { nome: "Valor do serviço", valor: serValorServicoBase },
-    { nome: "Id da maquina", valor: serMaquinaId },
+    { nome: "Nome", valor: sernome },
+    { nome: "Valor do serviço", valor: servalorservicobase },
+    { nome: "Id da maquina", valor: sermaquinaid },
   ]);
   if (verificador) {
     res.status(500).send({
@@ -58,8 +58,8 @@ exports.updateServicosById = async (req, res) => {
     });
   } else {
     const response = await db.query(
-      "UPDATE servicos SET serNome = $1, serValorServicoBase = $2, serMaquinaId = $3 WHERE serid = $4",
-      [serNome, serValorServicoBase, serMaquinaId, serid]
+      "UPDATE servicos SET sernome = $1, servalorservicobase = $2, sermaquinaid = $3 WHERE serid = $4",
+      [sernome, servalorservicobase, sermaquinaid, serid]
     );
 
     res.status(200).send({ message: "Serviço editado com sucesso!" });

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { InputText } from "primereact/inputtext";
 import { Button } from "primereact/button";
 import { useForm } from "react-hook-form";
@@ -10,6 +10,10 @@ const FuncionarioForm = (props) => {
     const { name, value } = event.target;
     props.setFuncionario({ ...props.funcionario, [name]: value });
   };
+  const [funtelefoneMask, setFuntelefoneMask] = useState(
+    props.funcionario.funtelefone
+  );
+  const [funcpfMask, setFuncpfMask] = useState(props.funcionario.funcpf);
 
   const sexoSelect = [
     { label: "Masculino", value: "Masculino" },
@@ -35,10 +39,10 @@ const FuncionarioForm = (props) => {
           <div style={{ marginLeft: "33em" }}>
             <div className="p-fluid grid formgrid">
               <div className="field col-12 md:col-4">
-                <label htmlFor="funNome">Nome</label>
+                <label htmlFor="funnome">Nome</label>
                 <InputText
-                  name="funNome"
-                  {...register("funNome", {
+                  name="funnome"
+                  {...register("funnome", {
                     required: {
                       value: true,
                       message: "O nome é obrigatório!",
@@ -52,20 +56,20 @@ const FuncionarioForm = (props) => {
                       message: "O nome pode ter no mínimo 2 caracteres!",
                     },
                   })}
-                  defaultValue={props.funcionario.funNome}
+                  defaultValue={props.funcionario.funnome}
                   onChange={handleInputChange}
                 />
-                {errors.funNome && (
-                  <span style={{ color: "red" }}>{errors.funNome.message}</span>
+                {errors.funnome && (
+                  <span style={{ color: "red" }}>{errors.funnome.message}</span>
                 )}
               </div>
             </div>
             <div className="p-fluid grid formgrid">
               <div className="field col-12 md:col-4">
-                <label htmlFor="funEmail">Email</label>
+                <label htmlFor="funemail">Email</label>
                 <InputText
-                  name="funEmail"
-                  {...register("funEmail", {
+                  name="funemail"
+                  {...register("funemail", {
                     required: {
                       value: true,
                       message: "O email é obrigatório!",
@@ -75,47 +79,60 @@ const FuncionarioForm = (props) => {
                       message: "O email pode ter no máximo 100 caracteres!",
                     },
                     minLength: {
-                      value: 10,
+                      value: 2,
                       message: "O nome deve ter no mínimo 10 caracteres!",
                     },
                   })}
-                  defaultValue={props.funcionario.funEmail}
+                  defaultValue={props.funcionario.funemail}
                   onChange={handleInputChange}
                 />
-                {errors.funEmail && (
-                  <span style={{ color: "red"}}>
-                    {errors.funEmail.message}
+                {errors.funemail && (
+                  <span style={{ color: "red" }}>
+                    {errors.funemail.message}
                   </span>
                 )}
               </div>
             </div>
             <div className="p-fluid gridF formgrid">
               <div className="field col-12 md:col-4">
-                <label htmlFor="funCpf">CPF</label>
+                <label htmlFor="funcpf">CPF</label>
                 <InputMask
-                  name="funCpf"
+                  name="funcpf"
                   mask="999.999.999-99"
-                  defaultValue={props.funcionario.funCpf}
-                  onChange={handleInputChange}
+                  value={funcpfMask}
+                  onChange={(e) => {
+                    setFuncpfMask(e.value);
+                    props.setFuncionario({
+                      ...props.funcionario,
+                      funcpf: e.value,
+                    });
+                  }}
                 />
-                {errors.funCpf && (
-                  <span style={{ color: "red" }}>{errors.funCpf.message}</span>
+
+                {errors.funcpf && (
+                  <span style={{ color: "red" }}>{errors.funcpf.message}</span>
                 )}
               </div>
             </div>
             <div className="p-fluid gridF formgrid">
               <div className="field col-12 md:col-4">
-                <label htmlFor="funTelefone">Telefone</label>
+                <label htmlFor="funtelefone">Telefone</label>
                 <div>
                   <InputMask
-                    name="funTelefone"
+                    name="funtelefone"
                     mask="(99)99999-9999"
-                    defaultValue={props.funcionario.funTelefone}
-                    onChange={handleInputChange}
+                    value={funtelefoneMask}
+                    onChange={(e) => {
+                      setFuntelefoneMask(e.value);
+                      props.setFuncionario({
+                        ...props.funcionario,
+                        funtelefone: e.value,
+                      });
+                    }}
                   />
-                  {errors.funTelefone && (
+                  {errors.funtelefone && (
                     <span style={{ color: "red" }}>
-                      {errors.funTelefone.message}
+                      {errors.funtelefone.message}
                     </span>
                   )}
                 </div>
@@ -124,10 +141,10 @@ const FuncionarioForm = (props) => {
 
             <div className="p-fluid gridF formgrid">
               <div className="field col-12 md:col-4">
-                <label htmlFor="funEndereco">Endereco</label>
+                <label htmlFor="funendereco">Endereco</label>
                 <InputText
-                  name="funEndereco"
-                  {...register("funEndereco", {
+                  name="funendereco"
+                  {...register("funendereco", {
                     required: {
                       value: true,
                       message: "O endereco é obrigatório!",
@@ -141,28 +158,28 @@ const FuncionarioForm = (props) => {
                       message: "O endereco deve ter no mínimo 2 caracteres!",
                     },
                   })}
-                  defaultValue={props.funcionario.funEndereco}
+                  defaultValue={props.funcionario.funendereco}
                   onChange={handleInputChange}
                 />
-                {errors.funEndereco && (
+                {errors.funendereco && (
                   <span style={{ color: "red" }}>
-                    {errors.funEndereco.message}
+                    {errors.funendereco.message}
                   </span>
                 )}
               </div>
             </div>
             <div className="p-fluid gridF formgrid">
               <div className="field col-12 md:col-4">
-                <label htmlFor="funSexo">Sexo</label>
+                <label htmlFor="funsexo">Sexo</label>
 
                 <Dropdown
                   options={sexoSelect}
-                  name="funSexo"
-                  value={props.funcionario.funSexo}
+                  name="funsexo"
+                  value={props.funcionario.funsexo}
                   onChange={(handleInputChange) =>
                     props.setFuncionario((funcionario) => ({
                       ...funcionario,
-                      funSexo: handleInputChange.value,
+                      funsexo: handleInputChange.value,
                     }))
                   }
                   placeholder="Selecione"

@@ -22,14 +22,14 @@ function AgendamentoCon() {
   const [agendamentos, setAgendamentos] = useState([]);
   const toastRef = useRef();
   const initialState = {
-    agdId: null,
-    agdData: "",
-    agdFuncionario: "",
-    agdServico: "",
-    agdUsuario: "",
-    agdCliente: "",
-    agdqtdHoras: "",
-    agdValorTotal: "",
+    agdid: null,
+    agddata: "",
+    agdfuncionario: "",
+    agdservico: "",
+    agdusuario: "",
+    agdcliente: "",
+    agdqtdhoras: "",
+    agdvalortotal: "",
   };
   const [agendamento, setAgendamento] = useState(initialState);
   const [editando, setEditando] = useState(false);
@@ -112,7 +112,7 @@ function AgendamentoCon() {
     setEditando(false);
   };
   const salvar = () => {
-    if (agendamento.agdId == null) {
+    if (agendamento.agdid == null) {
       // inclussão
       AgendamentoSrv.incluir(agendamento)
         .then((response) => {
@@ -155,12 +155,12 @@ function AgendamentoCon() {
 
   const editar = (id) => {
     setAgendamento(
-      agendamentos.filter((agendamento) => agendamento.agdId === id)[0]
+      agendamentos.filter((agendamento) => agendamento.agdid === id)[0]
     );
     setEditando(true);
   };
 
-  const excluir = (agdId) => {
+  const excluir = (agdid) => {
     confirmDialog({
       message: "Confirma a exclusão?",
       header: "Confirmação",
@@ -168,12 +168,12 @@ function AgendamentoCon() {
       acceptLabel: "Sim",
       rejectLabel: "Não",
       acceptClassName: "p-button-danger",
-      accept: () => excluirConfirm(agdId),
+      accept: () => excluirConfirm(agdid),
     });
   };
 
-  const excluirConfirm = (agdId) => {
-    ServicoSrv.excluir(agdId)
+  const excluirConfirm = (agdid) => {
+    ServicoSrv.excluir(agdid)
       .then((response) => {
         onClickAtualizar();
         toastRef.current.show({

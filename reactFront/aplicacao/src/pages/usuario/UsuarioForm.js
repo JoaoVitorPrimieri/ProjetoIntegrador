@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { InputText } from "primereact/inputtext";
 import { Button } from "primereact/button";
 import { useForm } from "react-hook-form";
@@ -11,14 +11,17 @@ const UsuarioForm = (props) => {
     props.setUsuario({ ...props.usuario, [name]: value });
   };
 
-  //const [contraSenha, setContraSenha] = useState();
+  const [usuCpfMask, setUsuCpfMask] = useState(props.usuario.usucpf);
+
+  const [usuTelefoneMask, setUsuTelefoneMask] = useState(
+    props.usuario.usutelefone
+  );
 
   const sexoSelect = [
     { label: "Masculino", value: "Masculino" },
     { label: "Feminino", value: "Feminino" },
     { label: "Outro", value: "Outro" },
   ];
-
   const {
     register,
     handleSubmit,
@@ -27,16 +30,6 @@ const UsuarioForm = (props) => {
 
   const onSubmit = (data) => {
     props.salvar();
-
-    //console.log(data);
-    // if (contraSenha != props.usuario.senha) {
-    //   setError("senha", {
-    //     type: "custom",
-    //     message: "Senha e contra senha são diferentes!",
-    //   });
-    // } else {
-    //   props.salvar();
-    // }
   };
 
   return (
@@ -47,10 +40,10 @@ const UsuarioForm = (props) => {
           <div style={{ marginLeft: "33em" }}>
             <div className="p-fluid grid formgrid">
               <div className="field col-12 md:col-4">
-                <label htmlFor="usuNome">Nome</label>
+                <label htmlFor="usunome">Nome</label>
                 <InputText
-                  name="usuNome"
-                  {...register("usuNome", {
+                  name="usunome"
+                  {...register("usunome", {
                     required: {
                       value: true,
                       message: "O nome é obrigatório!",
@@ -64,20 +57,20 @@ const UsuarioForm = (props) => {
                       message: "O nome pode ter no mínimo 2 caracteres!",
                     },
                   })}
-                  defaultValue={props.usuario.usuNome}
+                  defaultValue={props.usuario.usunome}
                   onChange={handleInputChange}
                 />
-                {errors.usuNome && (
-                  <span style={{ color: "red" }}>{errors.usuNome.message}</span>
+                {errors.usunome && (
+                  <span style={{ color: "red" }}>{errors.usunome.message}</span>
                 )}
               </div>
             </div>
             <div className="p-fluid grid formgrid">
               <div className="field col-12 md:col-4">
-                <label htmlFor="usuEmail">Email</label>
+                <label htmlFor="usuemail">Email</label>
                 <InputText
-                  name="usuEmail"
-                  {...register("usuEmail", {
+                  name="usuemail"
+                  {...register("usuemail", {
                     required: {
                       value: true,
                       message: "O email é obrigatório!",
@@ -87,47 +80,57 @@ const UsuarioForm = (props) => {
                       message: "O email pode ter no máximo 100 caracteres!",
                     },
                     minLength: {
-                      value: 10,
+                      value: 5,
                       message: "O nome deve ter no mínimo 10 caracteres!",
                     },
                   })}
-                  defaultValue={props.usuario.usuEmail}
+                  defaultValue={props.usuario.usuemail}
                   onChange={handleInputChange}
                 />
-                {errors.usuEmail && (
+                {errors.usuemail && (
                   <span style={{ color: "red" }}>
-                    {errors.usuEmail.message}
+                    {errors.usuemail.message}
                   </span>
                 )}
               </div>
             </div>
             <div className="p-fluid gridF formgrid">
               <div className="field col-12 md:col-4">
-                <label htmlFor="usuCpf">CPF</label>
+                <label htmlFor="usucpf">CPF</label>
                 <InputMask
-                  name="usuCpf"
+                  name="usucpf"
                   mask="999.999.999-99"
-                  defaultValue={props.usuario.usuCpf}
-                  onChange={handleInputChange}
+                  value={usuCpfMask}
+                  onChange={(e) => {
+                    setUsuCpfMask(e.value);
+                    props.setUsuario({ ...props.usuario, usucpf: e.value });
+                  }}
                 />
-                {errors.usuCpf && (
-                  <span style={{ color: "red" }}>{errors.usuCpf.message}</span>
+
+                {errors.usucpf && (
+                  <span style={{ color: "red" }}>{errors.usucpf.message}</span>
                 )}
               </div>
             </div>
             <div className="p-fluid gridF formgrid">
               <div className="field col-12 md:col-4">
-                <label htmlFor="usuTelefone">Telefone</label>
+                <label htmlFor="usutelefone">Telefone</label>
                 <div>
                   <InputMask
-                    name="usuTelefone"
+                    name="usutelefone"
                     mask="(99)99999-9999"
-                    defaultValue={props.usuario.usuTelefone}
-                    onChange={handleInputChange}
+                    value={usuTelefoneMask}
+                    onChange={(e) => {
+                      setUsuTelefoneMask(e.value);
+                      props.setUsuario({
+                        ...props.usuario,
+                        usutelefone: e.value,
+                      });
+                    }}
                   />
-                  {errors.usuTelefone && (
+                  {errors.usutelefone && (
                     <span style={{ color: "red" }}>
-                      {errors.usuTelefone.message}
+                      {errors.usutelefone.message}
                     </span>
                   )}
                 </div>
@@ -136,10 +139,10 @@ const UsuarioForm = (props) => {
 
             <div className="p-fluid gridF formgrid">
               <div className="field col-12 md:col-4">
-                <label htmlFor="usuEndereco">Endereco</label>
+                <label htmlFor="usuendereco">Endereco</label>
                 <InputText
-                  name="usuEndereco"
-                  {...register("usuEndereco", {
+                  name="usuendereco"
+                  {...register("usuendereco", {
                     required: {
                       value: true,
                       message: "O endereco é obrigatório!",
@@ -153,28 +156,28 @@ const UsuarioForm = (props) => {
                       message: "O endereco deve ter no mínimo 2 caracteres!",
                     },
                   })}
-                  defaultValue={props.usuario.usuEndereco}
+                  defaultValue={props.usuario.usuendereco}
                   onChange={handleInputChange}
                 />
-                {errors.usuEndereco && (
+                {errors.usuendereco && (
                   <span style={{ color: "red" }}>
-                    {errors.usuEndereco.message}
+                    {errors.usuendereco.message}
                   </span>
                 )}
               </div>
             </div>
             <div className="p-fluid gridF formgrid">
               <div className="field col-12 md:col-4">
-                <label htmlFor="usuSexo">Sexo</label>
+                <label htmlFor="ususexo">Sexo</label>
 
                 <Dropdown
                   options={sexoSelect}
-                  name="usuSexo"
-                  value={props.usuario.usuSexo}
+                  name="ususexo"
+                  value={props.usuario.ususexo}
                   onChange={(handleInputChange) =>
                     props.setUsuario((usuario) => ({
                       ...usuario,
-                      usuSexo: handleInputChange.value,
+                      ususexo: handleInputChange.value,
                     }))
                   }
                   placeholder="Selecione"
@@ -184,10 +187,10 @@ const UsuarioForm = (props) => {
             </div>
             <div className="p-fluid gridF formgrid">
               <div className="field col-12 md:col-4">
-                <label htmlFor="usuSenha">Senha</label>
+                <label htmlFor="ususenha">Senha</label>
                 <InputText
-                  name="usuSenha"
-                  {...register("usuSenha", {
+                  name="ususenha"
+                  {...register("ususenha", {
                     required: {
                       value: true,
                       message: "O campo senha é obrigatório!",
@@ -202,23 +205,16 @@ const UsuarioForm = (props) => {
                       message: "O campo senha deve ter no mínimo 7 caracteres!",
                     },
                   })}
-                  defaultValue={props.usuario.usuSenha}
+                  defaultValue={props.usuario.ususenha}
                   onChange={handleInputChange}
                 />
-                {errors.usuSenha && (
+                {errors.ususenha && (
                   <span style={{ color: "red" }}>
-                    {errors.usuSenha.message}
+                    {errors.ususenha.message}
                   </span>
                 )}
               </div>
             </div>
-            {/* <div className="p-fluid grid formgrid">
-                    <div className="field col-12 md:col-4">
-                        <label htmlFor="contraSenha">Contra Senha</label>
-                        <InputText name="contraSenha" defaultValue={contraSenha} 
-                                   onChange={ e => setContraSenha(e.target.value)} />
-                    </div>
-                </div>                          */}
           </div>
 
           <div>

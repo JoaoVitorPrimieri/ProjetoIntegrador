@@ -14,14 +14,14 @@ function UsuarioCont() {
   const [usuarios, setUsuarios] = useState([]);
   const toastRef = useRef();
   const initialState = {
-    usuId: null,
-    usuNome: "",
-    usuEmail: "",
-    usuCpf: "",
-    usuTelefone: "",
-    usuEndereco: "",
-    usuSexo: "",
-    usuSenha: "",
+    usuid: null,
+    usunome: "",
+    usuemail: "",
+    usucpf: "",
+    usutelefone: "",
+    usuendereco: "",
+    ususexo: "",
+    ususenha: "",
   };
   const [usuario, setUsuario] = useState(initialState);
   const [editando, setEditando] = useState(false);
@@ -60,25 +60,23 @@ function UsuarioCont() {
   // // operação inserir
 
   const inserir = () => {
+    setUsuario(initialState);
     setEditando(true);
   };
 
   const cancelar = () => {
-    console.log("Cancelou ...");
     setEditando(false);
     setUsuario(initialState);
   };
 
   const salvar = () => {
-    if (usuario.usuId == null) {
+    if (usuario.usuid == null) {
       // inclussão
 
       UsuarioSrv.incluir(usuario)
         .then((response) => {
           setEditando(false);
           onClickAtualizar();
-          setUsuario(initialState);
-
           toastRef.current.show({
             severity: "success",
             summary: "Salvou",
@@ -98,8 +96,6 @@ function UsuarioCont() {
         .then((response) => {
           setEditando(false);
           onClickAtualizar();
-          setUsuario(initialState);
-
           toastRef.current.show({
             severity: "success",
             summary: "Salvou",
@@ -117,11 +113,11 @@ function UsuarioCont() {
   };
 
   const editar = (id) => {
-    setUsuario(usuarios.filter((usuario) => usuario.usuId === id)[0]);
+    setUsuario(usuarios.filter((usuario) => usuario.usuid === id)[0]);
     setEditando(true);
   };
 
-  const excluir = (usuId) => {
+  const excluir = (usuid) => {
     confirmDialog({
       message: "Confirma a exclusão?",
       header: "Confirmação",
@@ -129,12 +125,12 @@ function UsuarioCont() {
       acceptLabel: "Sim",
       rejectLabel: "Não",
       acceptClassName: "p-button-danger",
-      accept: () => excluirConfirm(usuId),
+      accept: () => excluirConfirm(usuid),
     });
   };
 
-  const excluirConfirm = (usuId) => {
-    UsuarioSrv.excluir(usuId)
+  const excluirConfirm = (usuid) => {
+    UsuarioSrv.excluir(usuid)
       .then((response) => {
         onClickAtualizar();
         toastRef.current.show({

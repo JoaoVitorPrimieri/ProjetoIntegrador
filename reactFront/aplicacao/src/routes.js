@@ -2,7 +2,7 @@ import React, { Suspense, lazy } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Menu from "./Menu";
 import Rodape from "./Componentes/comp/rodape";
-// import Login from "./pages/login/indexx"
+// import Login from "./pages/login/indexx";
 
 const UsuarioCon = lazy(() => import("./pages/usuario/UsuarioCon"));
 const FuncionarioCon = lazy(() => import("./pages/funcionario/FuncionarioCon"));
@@ -17,7 +17,7 @@ function Rotas() {
     <div>
       <BrowserRouter>
         <Suspense fallback={<div>Carregando ...</div>}>
-          <Menu />
+          {/* <Menu /> */}
           <Routes>
             {/* <Route path="/" element={<LoginPage/>} /> */}
             <Route exact path="/login" element={<Login />} />
@@ -28,7 +28,7 @@ function Rotas() {
             <Route path="/servicos" element={<ServicoCon />} />
             <Route path="/agendamentos" element={<AgendamentoCon />} />
           </Routes>
-          <Rodape />
+          {/* <Rodape /> */}
         </Suspense>
       </BrowserRouter>
     </div>

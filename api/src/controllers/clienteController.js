@@ -2,15 +2,15 @@ const db = require("../config/database");
 const VerificarEmpty = require("../validacoes/verificaEmpty");
 
 exports.createClientes = async (req, res) => {
-  const { cliNome, cliEmail, cliCpf, cliTelefone, cliEndereco, cliSexo } =
+  const { clinome, cliemail, clicpf, clitelefone, cliendereco, clisexo } =
     req.body;
   const verificador = VerificarEmpty([
-    { nome: "Nome", valor: cliNome },
-    { nome: "Email", valor: cliEmail },
-    { nome: "CPF", valor: cliCpf },
-    { nome: "Telefone", valor: cliTelefone },
-    { nome: "Endereço", valor: cliEndereco },
-    { nome: "Sexo", valor: cliSexo },
+    { nome: "Nome", valor: clinome },
+    { nome: "Email", valor: cliemail },
+    { nome: "CPF", valor: clicpf },
+    { nome: "Telefone", valor: clitelefone },
+    { nome: "Endereço", valor: cliendereco },
+    { nome: "Sexo", valor: clisexo },
   ]);
   if (verificador) {
     res.status(500).send({
@@ -18,19 +18,19 @@ exports.createClientes = async (req, res) => {
     });
   } else {
     const { rows } = await db.query(
-      "INSERT INTO clientes (cliNome, cliEmail, cliCpf, cliTelefone, cliEndereco, cliSexo) VALUES ($1, $2, $3, $4, $5, $6)",
-      [cliNome, cliEmail, cliCpf, cliTelefone, cliEndereco, cliSexo]
+      "INSERT INTO clientes (clinome, cliemail, clicpf, clitelefone, cliendereco, clisexo) VALUES ($1, $2, $3, $4, $5, $6)",
+      [clinome, cliemail, clicpf, clitelefone, cliendereco, clisexo]
     );
     res.status(201).send({
       message: "Cliente adicionado com sucesso!",
       body: {
         clientes: {
-          cliNome,
-          cliEmail,
-          cliCpf,
-          cliTelefone,
-          cliEndereco,
-          cliSexo,
+          clinome,
+          cliemail,
+          clicpf,
+          clitelefone,
+          cliendereco,
+          clisexo,
         },
       },
     });
@@ -39,7 +39,7 @@ exports.createClientes = async (req, res) => {
 
 exports.listAllClientes = async (req, res) => {
   const response = await db.query(
-    "SELECT * FROM clientes ORDER BY cliNome ASC"
+    "SELECT * FROM clientes ORDER BY clinome ASC"
   );
   res.status(200).send(response.rows);
 };
@@ -54,29 +54,29 @@ exports.findClientesById = async (req, res) => {
 
 exports.updateClientesById = async (req, res) => {
   const cliid = parseInt(req.params.id);
-  const { cliNome, cliEmail, cliCpf, cliTelefone, cliEndereco, cliSexo } =
+  const { clinome, cliemail, clicpf, clitelefone, cliendereco, clisexo } =
     req.body;
-    const verificador = VerificarEmpty([
-      { nome: "Id", valor: cliid },
-      { nome: "Nome", valor: cliNome },
-      { nome: "Email", valor: cliEmail },
-      { nome: "CPF", valor: cliCpf },
-      { nome: "Telefone", valor: cliTelefone },
-      { nome: "Endereço", valor: cliEndereco },
-      { nome: "Sexo", valor: cliSexo },
-    ]);
-    if (verificador) {
-      res.status(500).send({
-        message: verificador,
-      });
-    } else {
-  const response = await db.query(
-    "UPDATE clientes SET cliNome = $1, cliEmail = $2, cliCpf = $3, cliTelefone = $4, cliEndereco = $5, cliSexo = $6 WHERE cliid = $7",
-    [cliNome, cliEmail, cliCpf, cliTelefone, cliEndereco, cliSexo, cliid]
-  );
-  
-  res.status(200).send({ message: "Cliente editado com sucesso!" });
-};
+  const verificador = VerificarEmpty([
+    { nome: "Id", valor: cliid },
+    { nome: "Nome", valor: clinome },
+    { nome: "Email", valor: cliemail },
+    { nome: "CPF", valor: clicpf },
+    { nome: "Telefone", valor: clitelefone },
+    { nome: "Endereço", valor: cliendereco },
+    { nome: "Sexo", valor: clisexo },
+  ]);
+  if (verificador) {
+    res.status(500).send({
+      message: verificador,
+    });
+  } else {
+    const response = await db.query(
+      "UPDATE clientes SET clinome = $1, cliemail = $2, clicpf = $3, clitelefone = $4, cliendereco = $5, clisexo = $6 WHERE cliid = $7",
+      [clinome, cliemail, clicpf, clitelefone, cliendereco, clisexo, cliid]
+    );
+
+    res.status(200).send({ message: "Cliente editado com sucesso!" });
+  }
 };
 exports.deleteClientesById = async (req, res) => {
   const cliid = parseInt(req.params.id);

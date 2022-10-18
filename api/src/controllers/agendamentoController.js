@@ -3,21 +3,21 @@ const VerificarEmpty = require("../validacoes/verificaEmpty");
 
 exports.createAgendamentos = async (req, res) => {
   const {
-    agdData,
-    agdFuncionario,
-    agdServico,
-    agdUsuario,
-    agdCliente,
-    agdqtdHoras,
+    agddata,
+    agdfuncionario,
+    agdservico,
+    agdusuario,
+    agdcliente,
+    agdqtdhoras,
   } = req.body;
 
   const verificador = VerificarEmpty([
-    { nome: "Data", valor: agdData },
-    { nome: "Funcionário", valor: agdFuncionario },
-    { nome: "Serviço", valor: agdServico },
-    { nome: "Usuário", valor: agdUsuario },
-    { nome: "Cliente", valor: agdCliente },
-    { nome: "Quantidade de Horas", valor: agdqtdHoras },
+    { nome: "Data", valor: agddata },
+    { nome: "Funcionário", valor: agdfuncionario },
+    { nome: "Serviço", valor: agdservico },
+    { nome: "Usuário", valor: agdusuario },
+    { nome: "Cliente", valor: agdcliente },
+    { nome: "Quantidade de Horas", valor: agdqtdhoras },
   ]);
   if (verificador) {
     res.status(500).send({
@@ -26,19 +26,19 @@ exports.createAgendamentos = async (req, res) => {
   } else {
     //Calculo do serviço
     const servico = await db.query("SELECT * FROM servicos WHERE serid = $1", [
-      agdServico,
+      agdservico,
     ]);
-    const agdValorTotal = servico.rows[0].servalorservicobase * agdqtdHoras;
+    const agdvalortotal = servico.rows[0].servalorservicobase * agdqtdhoras;
     const { rows } = await db.query(
-      "INSERT INTO agendamentos (agdData, agdFuncionario, agdServico, agdUsuario, agdCliente, agdqtdHoras, agdValorTotal) VALUES ($1, $2, $3, $4, $5, $6, $7)",
+      "INSERT INTO agendamentos (agddata, agdfuncionario, agdservico, agdusuario, agdcliente, agdqtdhoras, agdvalortotal) VALUES ($1, $2, $3, $4, $5, $6, $7)",
       [
-        agdData,
-        agdFuncionario,
-        agdServico,
-        agdUsuario,
-        agdCliente,
-        agdqtdHoras,
-        agdValorTotal,
+        agddata,
+        agdfuncionario,
+        agdservico,
+        agdusuario,
+        agdcliente,
+        agdqtdhoras,
+        agdvalortotal,
       ]
     );
 
@@ -46,13 +46,13 @@ exports.createAgendamentos = async (req, res) => {
       message: "Agendamento adicionado com sucesso!",
       body: {
         agendamentos: {
-          agdData,
-          agdFuncionario,
-          agdServico,
-          agdUsuario,
-          agdCliente,
-          agdqtdHoras,
-          agdValorTotal,
+          agddata,
+          agdfuncionario,
+          agdservico,
+          agdusuario,
+          agdcliente,
+          agdqtdhoras,
+          agdvalortotal,
         },
       },
     });
@@ -87,20 +87,20 @@ exports.findAgendamentosById = async (req, res) => {
 exports.updateAgendamentosById = async (req, res) => {
   const agdid = parseInt(req.params.id);
   const {
-    agdData,
-    agdFuncionario,
-    agdServico,
-    agdUsuario,
-    agdCliente,
-    agdqtdHoras,
+    agddata,
+    agdfuncionario,
+    agdservico,
+    agdusuario,
+    agdcliente,
+    agdqtdhoras,
   } = req.body;
   const verificador = VerificarEmpty([
-    { nome: "Data", valor: agdData },
-    { nome: "Funcionário", valor: agdFuncionario },
-    { nome: "Serviço", valor: agdServico },
-    { nome: "Usuário", valor: agdUsuario },
-    { nome: "Cliente", valor: agdCliente },
-    { nome: "Quantidade de Horas", valor: agdqtdHoras },
+    { nome: "Data", valor: agddata },
+    { nome: "Funcionário", valor: agdfuncionario },
+    { nome: "Serviço", valor: agdservico },
+    { nome: "Usuário", valor: agdusuario },
+    { nome: "Cliente", valor: agdcliente },
+    { nome: "Quantidade de Horas", valor: agdqtdhoras },
   ]);
   if (verificador) {
     res.status(500).send({
@@ -108,14 +108,14 @@ exports.updateAgendamentosById = async (req, res) => {
     });
   } else {
     const response = await db.query(
-      "UPDATE agendamentos SET agdData = $1, agdFuncionario = $2, agdServico = $3, agdUsuario = $4, agdCliente = $5, agdqtdHoras = $6 WHERE agdid = $7",
+      "UPDATE agendamentos SET agddata = $1, agdfuncionario = $2, agdservico = $3, agdusuario = $4, agdcliente = $5, agdqtdhoras = $6 WHERE agdid = $7",
       [
-        agdData,
-        agdFuncionario,
-        agdServico,
-        agdUsuario,
-        agdCliente,
-        agdqtdHoras,
+        agddata,
+        agdfuncionario,
+        agdservico,
+        agdusuario,
+        agdcliente,
+        agdqtdhoras,
         agdid,
       ]
     );

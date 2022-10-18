@@ -29,10 +29,10 @@ const ServicoForm = (props) => {
           <div style={{ marginLeft: "33em" }}>
             <div className="p-fluid grid formgrid">
               <div className="field col-12 md:col-4">
-                <label htmlFor="serNome">Nome</label>
+                <label htmlFor="sernome">Nome</label>
                 <InputText
-                  name="serNome"
-                  {...register("serNome", {
+                  name="sernome"
+                  {...register("sernome", {
                     required: {
                       value: true,
                       message: "O nome é obrigatório!",
@@ -46,50 +46,50 @@ const ServicoForm = (props) => {
                       message: "O nome pode ter no mínimo 2 caracteres!",
                     },
                   })}
-                  defaultValue={props.servico.serNome}
+                  defaultValue={props.servico.sernome}
                   onChange={handleInputChange}
                 />
-                {errors.serNome && (
-                  <span style={{ color: "red" }}>{errors.serNome.message}</span>
+                {errors.sernome && (
+                  <span style={{ color: "red" }}>{errors.sernome.message}</span>
                 )}
               </div>
             </div>
 
             <div className="p-fluid grid formgrid">
               <div className="field col-12 md:col-4">
-                <label htmlFor="serValorServicoBase">Valor Base</label>
+                <label htmlFor="servalorservicobase">Valor Base</label>
                 <InputNumber
-                  name="serValorServicoBase"
-                  {...register("serValorServicoBase", {
+                  name="servalorservicobase"
+                  {...register("servalorservicobase", {
                     valueAsNumber: true,
                   })}
                   inputMode="decimal"
-                  value={props.servico.serValorServicoBase}
+                  value={props.servico.servalorservicobase}
                   onChange={(handleInputChange) =>
                     props.setServico((servico) => ({
                       ...servico,
-                      serValorServicoBase: handleInputChange.value,
+                      servalorservicobase: handleInputChange.value,
                     }))
                   }
                 />
-                {errors.serValorServicoBase && (
+                {errors.servalorservicobase && (
                   <span style={{ color: "red" }}>
-                    {errors.serValorServicoBase.message}
+                    {errors.servalorservicobase.message}
                   </span>
                 )}
               </div>
             </div>
             <div className="p-fluid grid formgrid">
               <div className="field col-12 md:col-4">
-                <label htmlFor="serMaquinaId">Maquina:</label>
+                <label htmlFor="sermaquinaid">Maquina:</label>
                 <Dropdown
-                  name="serMaquinaId"
-                  value={props.servico.serMaquinaId}
+                  name="sermaquinaid"
+                  value={props.servico.sermaquinaid}
                   options={props.maquinas}
                   onChange={(handleInputChange) =>
                     props.setServico((servico) => ({
                       ...servico,
-                      serMaquinaId: handleInputChange.value,
+                      sermaquinaid: handleInputChange.value,
                     }))
                   }
                   optionLabel="maqmodelo"

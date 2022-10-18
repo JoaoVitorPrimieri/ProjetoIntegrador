@@ -4,22 +4,22 @@ const VerificarEmpty = require("../validacoes/verificaEmpty");
 
 exports.createUsuarios = async (req, res) => {
   const {
-    usuNome,
-    usuEmail,
-    usuCpf,
-    usuTelefone,
-    usuEndereco,
-    usuSexo,
-    usuSenha,
+    usunome,
+    usuemail,
+    usucpf,
+    usutelefone,
+    usuendereco,
+    ususexo,
+    ususenha,
   } = req.body;
 
   const verificador = VerificarEmpty([
-    { nome: "Nome", valor: usuNome },
-    { nome: "Email", valor: usuEmail },
-    { nome: "CPF", valor: usuCpf },
-    { nome: "Telefone", valor: usuTelefone },
-    { nome: "Endereço", valor: usuEndereco },
-    { nome: "Senha", valor: usuSenha },
+    { nome: "Nome", valor: usunome },
+    { nome: "Email", valor: usuemail },
+    { nome: "CPF", valor: usucpf },
+    { nome: "Telefone", valor: usutelefone },
+    { nome: "Endereço", valor: usuendereco },
+    { nome: "Senha", valor: ususenha },
   ]);
   if (verificador) {
     res.status(500).send({
@@ -27,28 +27,20 @@ exports.createUsuarios = async (req, res) => {
     });
   } else {
     const { rows } = await db.query(
-      "INSERT INTO usuarios (usuNome, usuEmail, usuCpf, usuTelefone, usuEndereco, usuSexo, usuSenha) VALUES ($1, $2, $3, $4, $5, $6, $7)",
-      [
-        usuNome,
-        usuEmail,
-        usuCpf,
-        usuTelefone,
-        usuEndereco,
-        usuSexo,
-        usuSenha,
-      ]
+      "INSERT INTO usuarios (usunome, usuemail, usucpf, usutelefone, usuendereco, ususexo, ususenha) VALUES ($1, $2, $3, $4, $5, $6, $7)",
+      [usunome, usuemail, usucpf, usutelefone, usuendereco, ususexo, ususenha]
     );
     res.status(201).send({
       message: "Usuario adicionado com sucesso!",
       body: {
         usuarios: {
-          usuNome,
-          usuEmail,
-          usuCpf,
-          usuTelefone,
-          usuEndereco,
-          usuSexo,
-          usuSenha,
+          usunome,
+          usuemail,
+          usucpf,
+          usutelefone,
+          usuendereco,
+          ususexo,
+          ususenha,
         },
       },
     });
@@ -56,7 +48,7 @@ exports.createUsuarios = async (req, res) => {
 };
 exports.listAllUsuarios = async (req, res) => {
   const response = await db.query(
-    "SELECT * FROM usuarios ORDER BY usuNome ASC"
+    "SELECT * FROM usuarios ORDER BY usunome ASC"
   );
   res.status(200).send(response.rows);
 };
@@ -72,44 +64,44 @@ exports.findUsuariosById = async (req, res) => {
 exports.updateUsuariosById = async (req, res) => {
   const usuid = parseInt(req.params.id);
   const {
-    usuNome,
-    usuEmail,
-    usuCpf,
-    usuTelefone,
-    usuEndereco,
-    usuSexo,
-    usuSenha,
+    usunome,
+    usuemail,
+    usucpf,
+    usutelefone,
+    usuendereco,
+    ususexo,
+    ususenha,
   } = req.body;
-  
+
   const verificador = VerificarEmpty([
-    { nome: "Nome", valor: usuNome },
-    { nome: "Email", valor: usuEmail },
-    { nome: "CPF", valor: usuCpf },
-    { nome: "Telefone", valor: usuTelefone },
-    { nome: "Endereço", valor: usuEndereco },
-    { nome: "Senha", valor: usuSenha },
+    { nome: "Nome", valor: usunome },
+    { nome: "Email", valor: usuemail },
+    { nome: "CPF", valor: usucpf },
+    { nome: "Telefone", valor: usutelefone },
+    { nome: "Endereço", valor: usuendereco },
+    { nome: "Senha", valor: ususenha },
   ]);
   if (verificador) {
     res.status(500).send({
       message: verificador,
     });
   } else {
-  const response = await db.query(
-    "UPDATE usuarios SET usuNome = $1, usuEmail = $2, usuCpf = $3, usuTelefone = $4, usuEndereco = $5, usuSexo = $6, usuSenha = $7 WHERE usuid = $8",
-    [
-      usuNome,
-      usuEmail,
-      usuCpf,
-      usuTelefone,
-      usuEndereco,
-      usuSexo,
-      usuSenha,
-      usuid,
-    ]
-  );
+    const response = await db.query(
+      "UPDATE usuarios SET usunome = $1, usuemail = $2, usucpf = $3, usutelefone = $4, usuendereco = $5, ususexo = $6, ususenha = $7 WHERE usuid = $8",
+      [
+        usunome,
+        usuemail,
+        usucpf,
+        usutelefone,
+        usuendereco,
+        ususexo,
+        ususenha,
+        usuid,
+      ]
+    );
 
-  res.status(200).send({ message: "Usuario editado com sucesso!" });
-};
+    res.status(200).send({ message: "Usuario editado com sucesso!" });
+  }
 };
 exports.deleteUsuariosById = async (req, res) => {
   const usuid = parseInt(req.params.id);
@@ -118,25 +110,21 @@ exports.deleteUsuariosById = async (req, res) => {
   res.status(200).send({ message: "Usuario deletado com sucesso!", usuid });
 };
 // exports.login = async (req, res) => {
-//   const { usuEmail, usuSenha } = req.body;
+//   const { usuemail, ususenha } = req.body;
 
 //   const response = await db.query(
-//     "SELECT usuEmail, usuSenha FROM usuarios WHERE usuEmail = $1 AND usuSenha = $2",
-//     [usuEmail, usuSenha]
-    
+//     "SELECT usuemail, ususenha FROM usuarios WHERE usuemail = $1 AND ususenha = $2",
+//     [usuemail, ususenha]
+
 //   );
 //   res.status(200).send(response.rows);
 // };
 
 exports.login = async (req, res) => {
-  const { usuEmail, usuSenha } = req.body;
+  const { usuemail, ususenha } = req.body;
   const response = await db.query(
-    "SELECT usuEmail, usuSenha FROM usuarios WHERE usuEmail = $1 AND usuSenha = $2",
-    [usuEmail, usuSenha]
+    "SELECT usuemail, ususenha FROM usuarios WHERE usuemail = $1 AND ususenha = $2",
+    [usuemail, ususenha]
   );
   res.status(200).send(response.rows);
-}
-
-
-
-
+};

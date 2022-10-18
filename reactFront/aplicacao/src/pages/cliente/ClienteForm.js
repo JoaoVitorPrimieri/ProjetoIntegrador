@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { InputText } from "primereact/inputtext";
 import { Button } from "primereact/button";
 import { useForm } from "react-hook-form";
@@ -10,6 +10,12 @@ const ClienteForm = (props) => {
     const { name, value } = event.target;
     props.setCliente({ ...props.cliente, [name]: value });
   };
+
+  const [cliCpfMask, setcliCpfMask] = useState(props.cliente.clicpf);
+
+  const [cliTelefoneMask, setcliTelefoneMask] = useState(
+    props.cliente.clitelefone
+  );
 
   const sexoSelect = [
     { label: "Masculino", value: "Masculino" },
@@ -35,10 +41,10 @@ const ClienteForm = (props) => {
           <div style={{ marginLeft: "33em" }}>
             <div className="p-fluid grid formgrid">
               <div className="field col-12 md:col-4">
-                <label htmlFor="cliNome">Nome</label>
+                <label htmlFor="clinome">Nome</label>
                 <InputText
-                  name="cliNome"
-                  {...register("cliNome", {
+                  name="clinome"
+                  {...register("clinome", {
                     required: {
                       value: true,
                       message: "O nome é obrigatório!",
@@ -52,20 +58,20 @@ const ClienteForm = (props) => {
                       message: "O nome pode ter no mínimo 2 caracteres!",
                     },
                   })}
-                  defaultValue={props.cliente.cliNome}
+                  defaultValue={props.cliente.clinome}
                   onChange={handleInputChange}
                 />
-                {errors.cliNome && (
-                  <span style={{ color: "red" }}>{errors.cliNome.message}</span>
+                {errors.clinome && (
+                  <span style={{ color: "red" }}>{errors.clinome.message}</span>
                 )}
               </div>
             </div>
             <div className="p-fluid grid formgrid">
               <div className="field col-12 md:col-4">
-                <label htmlFor="cliEmail">Email</label>
+                <label htmlFor="cliemail">Email</label>
                 <InputText
-                  name="cliEmail"
-                  {...register("cliEmail", {
+                  name="cliemail"
+                  {...register("cliemail", {
                     required: {
                       value: true,
                       message: "O email é obrigatório!",
@@ -75,47 +81,57 @@ const ClienteForm = (props) => {
                       message: "O email pode ter no máximo 100 caracteres!",
                     },
                     minLength: {
-                      value: 10,
+                      value: 2,
                       message: "O nome deve ter no mínimo 10 caracteres!",
                     },
                   })}
-                  defaultValue={props.cliente.cliEmail}
+                  defaultValue={props.cliente.cliemail}
                   onChange={handleInputChange}
                 />
-                {errors.cliEmail && (
+                {errors.cliemail && (
                   <span style={{ color: "red" }}>
-                    {errors.cliEmail.message}
+                    {errors.cliemail.message}
                   </span>
                 )}
               </div>
             </div>
             <div className="p-fluid gridF formgrid">
               <div className="field col-12 md:col-4">
-                <label htmlFor="cliCpf">CPF</label>
+                <label htmlFor="clicpf">CPF</label>
                 <InputMask
-                  name="cliCpf"
+                  name="clicpf"
                   mask="999.999.999-99"
-                  defaultValue={props.cliente.cliCpf}
-                  onChange={handleInputChange}
+                  value={cliCpfMask}
+                  onChange={(e) => {
+                    setcliCpfMask(e.value);
+                    props.setCliente({ ...props.cliente, clicpf: e.value });
+                  }}
                 />
-                {errors.cliCpf && (
-                  <span style={{ color: "red" }}>{errors.cliCpf.message}</span>
+
+                {errors.clicpf && (
+                  <span style={{ color: "red" }}>{errors.clicpf.message}</span>
                 )}
               </div>
             </div>
             <div className="p-fluid gridF formgrid">
               <div className="field col-12 md:col-4">
-                <label htmlFor="cliTelefone">Telefone</label>
+                <label htmlFor="clitelefone">Telefone</label>
                 <div>
                   <InputMask
-                    name="cliTelefone"
+                    name="clitelefone"
                     mask="(99)99999-9999"
-                    defaultValue={props.cliente.cliTelefone}
-                    onChange={handleInputChange}
+                    value={cliTelefoneMask}
+                    onChange={(e) => {
+                      setcliTelefoneMask(e.value);
+                      props.setCliente({
+                        ...props.cliente,
+                        clitelefone: e.value,
+                      });
+                    }}
                   />
-                  {errors.cliTelefone && (
+                  {errors.clitelefone && (
                     <span style={{ color: "red" }}>
-                      {errors.cliTelefone.message}
+                      {errors.clitelefone.message}
                     </span>
                   )}
                 </div>
@@ -124,10 +140,10 @@ const ClienteForm = (props) => {
 
             <div className="p-fluid gridF formgrid">
               <div className="field col-12 md:col-4">
-                <label htmlFor="cliEndereco">Endereco</label>
+                <label htmlFor="cliendereco">Endereco</label>
                 <InputText
-                  name="cliEndereco"
-                  {...register("cliEndereco", {
+                  name="cliendereco"
+                  {...register("cliendereco", {
                     required: {
                       value: true,
                       message: "O endereco é obrigatório!",
@@ -141,28 +157,28 @@ const ClienteForm = (props) => {
                       message: "O endereco deve ter no mínimo 2 caracteres!",
                     },
                   })}
-                  defaultValue={props.cliente.cliEndereco}
+                  defaultValue={props.cliente.cliendereco}
                   onChange={handleInputChange}
                 />
-                {errors.cliEndereco && (
+                {errors.cliendereco && (
                   <span style={{ color: "red" }}>
-                    {errors.cliEndereco.message}
+                    {errors.cliendereco.message}
                   </span>
                 )}
               </div>
             </div>
             <div className="p-fluid gridF formgrid">
               <div className="field col-12 md:col-4">
-                <label htmlFor="cliSexo">Sexo</label>
+                <label htmlFor="clisexo">Sexo</label>
 
                 <Dropdown
                   options={sexoSelect}
-                  name="cliSexo"
-                  value={props.cliente.cliSexo}
+                  name="clisexo"
+                  value={props.cliente.clisexo}
                   onChange={(handleInputChange) =>
                     props.setCliente((cliente) => ({
                       ...cliente,
-                      cliSexo: handleInputChange.value,
+                      clisexo: handleInputChange.value,
                     }))
                   }
                   placeholder="Selecione"

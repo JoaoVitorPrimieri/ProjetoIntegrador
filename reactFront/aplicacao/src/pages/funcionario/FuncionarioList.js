@@ -50,7 +50,7 @@ const FuncionarioList = (props) => {
     return (
       <React.Fragment>
         <button
-          onClick={() => props.editar(rowData.funId)}
+          onClick={() => props.editar(rowData.funid)}
           className="btn btn-danger"
         >
           Editar
@@ -84,12 +84,12 @@ const FuncionarioList = (props) => {
           Inserir
         </button>
         <button
-        type="button"
-        className="btn btn-danger"
-        onClick={(e) => funcionariosPDF(props.funcionarios)}
-      >
-        Gerar PDF
-      </button>
+          type="button"
+          className="btn btn-danger"
+          onClick={(e) => funcionariosPDF(props.funcionarios)}
+        >
+          Gerar PDF
+        </button>
         <div className="card">
           <DataTable
             value={props.funcionarios}
@@ -103,8 +103,18 @@ const FuncionarioList = (props) => {
           >
             <Column field="funnome" header="Nome" sortable filter></Column>
             <Column field="funemail" header="E-mail" sortable filter></Column>
-            <Column field="funtelefone" header="Telefone" sortable filter></Column>
-            <Column field="funendereco" header="Endereço" sortable filter></Column>
+            <Column
+              field="funtelefone"
+              header="Telefone"
+              sortable
+              filter
+            ></Column>
+            <Column
+              field="funendereco"
+              header="Endereço"
+              sortable
+              filter
+            ></Column>
             <Column header="Operações" body={countryBodyTemplate}></Column>
           </DataTable>
         </div>
