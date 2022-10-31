@@ -1,6 +1,7 @@
 const { parseComplete } = require("pg-protocol/dist/messages");
 const db = require("../config/database");
 const VerificarEmpty = require("../validacoes/verificaEmpty");
+const jwt = require("jsonwebtoken");
 
 exports.createUsuarios = async (req, res) => {
   const {
@@ -126,5 +127,22 @@ exports.login = async (req, res) => {
     "SELECT usuemail, ususenha FROM usuarios WHERE usuemail = $1 AND ususenha = $2",
     [usuemail, ususenha]
   );
-  res.status(200).send(response.rows);
+  if (!response.rows[0]) {
+    res.status(401).send({ message: "Usuário ou senha inválidos!" });
+  } else {
+    const token = generateAuthToken(usuemail, ususenha);
+    res.status(200).json({ token });
+  }
+};
+
+const generateAuthToken = function (usuemail, ususenha) {
+  const token = jwt.sign({ usuemail, ususenha }, process.env.JWT_PRIV_KEY, {
+    expiresIn: process.env.TOKEN_EXPIRE,
+  });
+
+  return token;
+};
+
+exports.logout = async (req, res) => {
+  res.status(200).send({ auth: false, token: null });
 };

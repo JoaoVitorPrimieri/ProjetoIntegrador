@@ -1,84 +1,80 @@
-// import React from "react";
-// import authService from "../../services/auth.service";
+import "./index.css";
 
-// import {Navigate} from "react-router-dom";
-// import {withRouter} from "react-router-dom";
+import logo from "../../Componentes/img/logo.svg";
+import React, { useState, useRef } from "react";
+import { useForm } from "react-hook-form";
+import LoginSrv from "./LoginSrv";
+import "primeicons/primeicons.css";
 
-// class LoginPage extends React.Component{
+const LoginFormulario = (props) => {
+  const handleInputChange = (event) => {
+    const { id, value } = event.target;
+    setCredenciais({ ...credenciais, [id]: value });
+  };
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+  const toastRef = useRef();
+  const [credenciais, setCredenciais] = useState({
+    usuemail: "",
+    ususenha: "",
+  });
+  const onSubmit = (data) => {
+    LoginSrv.login(credenciais).then((response) => {
+      let token = response.data;
 
-//     constructor(props){
-//         super(props);
-//         this.state = {
-//             usuEmail: "",
-//             usuSenha: "",
-//             usuEndereco: "a",
-//             usuTelefone: "a",
-//             usuCpf: "a",
-//             usuNome: "a",
-//             usuSexo: "a",
-//             redirectTo: null
-//         }
-//     }
+      if (token) {
+        sessionStorage.setItem("token", token);
+        console.log(token);
+        window.location = "/";
+      } else {
+        toastRef.current.show({
+          severity: "error",
+          summary: "Erro no login",
+          life: 5000,
+        });
+      }
+    });
+  };
 
-//     sendLogin = async (event) => {
-//         event.preventDefault();
-//         let data = {
-//             usuEmail: this.state.usuEmail,
-//             usuSenha: this.state.usuSenha,
-//             usuNome: this.state.usuNome,
-//             usuCpf: this.state.usuCpf,
-//             usuTelefone: this.state.usuTelefone,
-//             usuEndereco: this.state.usuEndereco,
-//             usuSexo: this.state.usuSexo
-//         }
-//         try{
-//             let res = await authService.authenticate(data);
-//             console.log("res", res.data);
-//             authService.setLoggedUser(res.data.data);
-//             this.setState({redirectTo: "/agendamentos"});
-//         }catch(error){
-//             console.log(error);
-//         }
-//     }
-   
-//     render() {
-//         if(this.state.redirectTo){
-//             return (
-//                 <Navigate to={this.state.redirectTo}/>
-//             )
-//             }
+  return (
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <div>
+        <div className="form">
+          <h2>Login</h2>
+          <input
+            className="inputs"
+            type="text"
+            name="usuemail"
+            placeholder="Email"
+            id="usuemail"
+            value={credenciais.usuemail}
+            onChange={handleInputChange}
+          />
+          <br></br>
+          <input
+            className="inputs"
+            type="password"
+            name="usuenha"
+            placeholder="Senha"
+            id="ususenha"
+            value={credenciais.ususenha}
+            onChange={handleInputChange}
+          />
+          <button
+            type="submit"
+            label="Entrar"
+            className="p-button-raised p-button-rounded p-button-success"
+          ></button>
+        </div>
+        <div className="side">
+          <img src={logo} className="img" alt="logo" />{" "}
+        </div>
+      </div>
+    </form>
+  );
+};
 
-//         return (
-//             <div className="container d-flex justify-content-center">
-//                 <div className="card mt-5 w-50">
-//                     <div className="card-body">
-//                         <form onSubmit={this.sendLogin}>
-//                             <div className="form-group">
-//                                 <label htmlFor="usuEmail">Usuário</label>
-//                                 <input 
-//                                     type="text" 
-//                                     className="form-control"
-//                                     value={this.state.usuEmail}
-//                                     onChange={e => this.setState({usuEmail: e.target.value})}
-//                                     id="usuEmail" 
-//                                     placeholder="Usuário" />
-//                             </div>
-//                             <div className="form-group">
-//                                 <label htmlFor="usuSenha">Senha</label>
-//                                 <input 
-//                                     type="usuSenha" 
-//                                     className="form-control" 
-//                                     value={this.state.usuSenha}
-//                                     onChange={e => this.setState({usuSenha: e.target.value})}
-//                                     id="usuSenha" 
-//                                     placeholder="Senha"/>
-//                             </div>
-//                             <button type="submit" className="btn btn-primary">Entrar</button>
-//                         </form>
-//                     </div>
-//                 </div>
-//             </div>
-//         )
-//     }
-// }
-// export default LoginPage;
+export default LoginFormulario;

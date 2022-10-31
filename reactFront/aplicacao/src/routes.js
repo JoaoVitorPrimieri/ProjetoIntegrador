@@ -10,17 +10,17 @@ const ClienteCon = lazy(() => import("./pages/cliente/ClienteCon"));
 const MaquinaCon = lazy(() => import("./pages/maquina/MaquinaCon"));
 const ServicoCon = lazy(() => import("./pages/servico/ServicoCon"));
 const AgendamentoCon = lazy(() => import("./pages/agendamento/AgendamentoCon"));
-const Login = lazy(() => import("./pages/login/indexx"));
+// const Login = lazy(() => import("./pages/login/indexx"));
 
 function Rotas() {
   return (
     <div>
       <BrowserRouter>
         <Suspense fallback={<div>Carregando ...</div>}>
-          {/* <Menu /> */}
+          <Menu />
           <Routes>
             {/* <Route path="/" element={<LoginPage/>} /> */}
-            <Route exact path="/login" element={<Login />} />
+            {/* <Route exact path="/login" element={<Login />} /> */}
             <Route path="/usuarios" element={<UsuarioCon />} />
             <Route path="/funcionarios" element={<FuncionarioCon />} />
             <Route path="/clientes" element={<ClienteCon />} />
@@ -28,7 +28,7 @@ function Rotas() {
             <Route path="/servicos" element={<ServicoCon />} />
             <Route path="/agendamentos" element={<AgendamentoCon />} />
           </Routes>
-          {/* <Rodape /> */}
+          <Rodape />
         </Suspense>
       </BrowserRouter>
     </div>

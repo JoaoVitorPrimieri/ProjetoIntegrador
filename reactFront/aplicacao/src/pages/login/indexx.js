@@ -20,6 +20,7 @@ function login() {
           name="Senha"
           placeholder="Senha"
         />
+        <button>Entrar</button>
       </div>
       <div className="side">
         <img src={logo} className="img" alt="logo" />{" "}
