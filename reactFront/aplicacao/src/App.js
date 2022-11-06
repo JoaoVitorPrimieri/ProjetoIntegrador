@@ -7,11 +7,12 @@ import "primereact/resources/primereact.css";
 import "primeflex/primeflex.css";
 import Rotas from "./routes";
 import LoginFormulario from "./pages/login/LoginForm";
+import "./Componentes/css/App.css";
 
 function App() {
   const [token, setToken] = useState([]);
   useEffect(() => {
-    setToken(sessionStorage.getItem("token"));
+    setToken(localStorage.getItem("token"));
   }, []);
   if (!token || token <= "") {
     return <LoginFormulario />;

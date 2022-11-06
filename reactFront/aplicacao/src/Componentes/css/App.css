@@ -1,12 +1,19 @@
-/* .app {
-  margin-bottom: 0%;
-  margin-top: 0px;
-  height: 100%;
-  width: 100%;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-#root {
-  height: 825px;
-  width: 100%;
-  margin-bottom: 0%;
-} */
+.app {
+  height: 100vh;
+  background-color: rgb(45, 51, 49);
+}
+
+
+.ui-menubar {
+  background-color: rgb(81, 216, 171) !important;
+  border-top: rgb(81, 216, 171) !important;
+  border-left: rgb(81, 216, 171) !important;
+  border-right: rgb(81, 216, 171) !important;
+
+}

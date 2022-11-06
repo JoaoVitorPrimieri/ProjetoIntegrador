@@ -23,11 +23,10 @@ const LoginFormulario = (props) => {
   });
   const onSubmit = (data) => {
     LoginSrv.login(credenciais).then((response) => {
-      let token = response.data;
+      let token = response.data.token;
 
       if (token) {
-        sessionStorage.setItem("token", token);
-        console.log(token);
+        localStorage.setItem("token", token);
         window.location = "/";
       } else {
         toastRef.current.show({
@@ -45,7 +44,7 @@ const LoginFormulario = (props) => {
         <div className="form">
           <h2>Login</h2>
           <input
-            className="inputs"
+            className="test"
             type="text"
             name="usuemail"
             placeholder="Email"
@@ -55,7 +54,7 @@ const LoginFormulario = (props) => {
           />
           <br></br>
           <input
-            className="inputs"
+            className="test"
             type="password"
             name="usuenha"
             placeholder="Senha"
@@ -63,11 +62,7 @@ const LoginFormulario = (props) => {
             value={credenciais.ususenha}
             onChange={handleInputChange}
           />
-          <button
-            type="submit"
-            label="Entrar"
-            className="p-button-raised p-button-rounded p-button-success"
-          ></button>
+          <button type="submit" label="Entrar" className="button"></button>
         </div>
         <div className="side">
           <img src={logo} className="img" alt="logo" />{" "}

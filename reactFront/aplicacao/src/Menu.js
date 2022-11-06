@@ -1,6 +1,7 @@
 import React from "react";
 import { Menubar } from "primereact/menubar";
 import { useNavigate } from "react-router-dom";
+import "../src/Componentes/css/App.css";
 
 function Menu() {
   let navigate = useNavigate();
@@ -71,12 +72,12 @@ function Menu() {
       label: "Sair",
       icon: "pi pi-sign-out",
       command: () => {
-        sessionStorage.setItem("token", "");
+        localStorage.setItem("token", "");
       },
       url: "/",
     },
   ];
 
-  return <Menubar model={items} />;
+  return <Menubar model={items} className="ui-menubar" />;
 }
 export default Menu;
