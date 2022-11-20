@@ -1,4 +1,3 @@
-import "./Componentes/css/App.css";
 import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "primeicons/primeicons.css";
@@ -7,7 +6,7 @@ import "primereact/resources/primereact.css";
 import "primeflex/primeflex.css";
 import Rotas from "./routes";
 import LoginFormulario from "./pages/login/LoginForm";
-import "./Componentes/css/App.css";
+import "../src/components/css/App.css";
 
 function App() {
   const [token, setToken] = useState([]);

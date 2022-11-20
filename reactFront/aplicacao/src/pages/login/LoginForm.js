@@ -1,6 +1,6 @@
-import "./index.css";
+import "../../components/css/login.css";
 
-import logo from "../../Componentes/img/logo.svg";
+import logo from "../../components/img/image.svg";
 import React, { useState, useRef } from "react";
 import { useForm } from "react-hook-form";
 import LoginSrv from "./LoginSrv";
@@ -12,9 +12,9 @@ const LoginFormulario = (props) => {
     setCredenciais({ ...credenciais, [id]: value });
   };
   const {
-    register,
+    // register,
     handleSubmit,
-    formState: { errors },
+    // formState: { errors },
   } = useForm();
   const toastRef = useRef();
   const [credenciais, setCredenciais] = useState({
@@ -43,26 +43,31 @@ const LoginFormulario = (props) => {
       <div>
         <div className="form">
           <h2>Login</h2>
+
           <input
             className="test"
             type="text"
+            required
             name="usuemail"
             placeholder="Email"
             id="usuemail"
             value={credenciais.usuemail}
             onChange={handleInputChange}
-          />
+          ></input>
           <br></br>
           <input
             className="test"
             type="password"
             name="usuenha"
+            required
             placeholder="Senha"
             id="ususenha"
             value={credenciais.ususenha}
             onChange={handleInputChange}
           />
-          <button type="submit" label="Entrar" className="button"></button>
+          <button type="submit" className="button">
+            Entrar
+          </button>
         </div>
         <div className="side">
           <img src={logo} className="img" alt="logo" />{" "}

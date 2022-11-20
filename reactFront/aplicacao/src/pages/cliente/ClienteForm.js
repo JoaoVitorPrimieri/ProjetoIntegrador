@@ -4,6 +4,7 @@ import { Button } from "primereact/button";
 import { useForm } from "react-hook-form";
 import { InputMask } from "primereact/inputmask";
 import { Dropdown } from "primereact/dropdown";
+import "../../components/css/formulario.css";
 
 const ClienteForm = (props) => {
   const handleInputChange = (event) => {
@@ -35,11 +36,11 @@ const ClienteForm = (props) => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <div style={{ padding: 15 }}>
-        <div className="card">
+      <div className="forms" style={{ padding: 15 }}>
+        <div className="forms">
           <h5>Cadastro de Clientes</h5>
-          <div style={{ marginLeft: "33em" }}>
-            <div className="p-fluid grid formgrid">
+          <div className="centralizar">
+            <div className="label_campos">
               <div className="field col-12 md:col-4">
                 <label htmlFor="clinome">Nome</label>
                 <InputText
@@ -66,7 +67,7 @@ const ClienteForm = (props) => {
                 )}
               </div>
             </div>
-            <div className="p-fluid grid formgrid">
+            <div className="label_campos">
               <div className="field col-12 md:col-4">
                 <label htmlFor="cliemail">Email</label>
                 <InputText
@@ -95,7 +96,7 @@ const ClienteForm = (props) => {
                 )}
               </div>
             </div>
-            <div className="p-fluid gridF formgrid">
+            <div className="label_campos">
               <div className="field col-12 md:col-4">
                 <label htmlFor="clicpf">CPF</label>
                 <InputMask
@@ -113,7 +114,7 @@ const ClienteForm = (props) => {
                 )}
               </div>
             </div>
-            <div className="p-fluid gridF formgrid">
+            <div className="label_campos">
               <div className="field col-12 md:col-4">
                 <label htmlFor="clitelefone">Telefone</label>
                 <div>
@@ -138,7 +139,7 @@ const ClienteForm = (props) => {
               </div>
             </div>
 
-            <div className="p-fluid gridF formgrid">
+            <div className="label_campos">
               <div className="field col-12 md:col-4">
                 <label htmlFor="cliendereco">Endereco</label>
                 <InputText
@@ -167,7 +168,7 @@ const ClienteForm = (props) => {
                 )}
               </div>
             </div>
-            <div className="p-fluid gridF formgrid">
+            <div className="label_campos">
               <div className="field col-12 md:col-4">
                 <label htmlFor="clisexo">Sexo</label>
 
@@ -188,17 +189,17 @@ const ClienteForm = (props) => {
             </div>
           </div>
 
-          <div>
+          <div className="div_buttons">
             <Button
               type="submit"
               icon="pi pi-pencil"
-              className="p-button-rounded p-button-text "
+              className="buttons"
               label="Salvar"
             ></Button>
             <Button
               type="button"
               icon="pi pi-trash"
-              className="p-button-rounded p-button-text"
+              className="buttons"
               label="Cancelar"
               onClick={props.cancelar}
             ></Button>

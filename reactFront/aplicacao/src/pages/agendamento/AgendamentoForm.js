@@ -3,6 +3,7 @@ import { Button } from "primereact/button";
 import { useForm } from "react-hook-form";
 import { Dropdown } from "primereact/dropdown";
 import { InputMask } from "primereact/inputmask";
+import "../../components/css/formulario.css";
 
 const AgendamentoForm = (props) => {
   const handleInputChange = (event) => {
@@ -25,11 +26,11 @@ const AgendamentoForm = (props) => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <div style={{ padding: 15 }}>
-        <div className="card">
+      <div className="forms" style={{ padding: 15 }}>
+        <div className="forms">
           <h5>Cadastro de Agendamentos</h5>
-          <div style={{ marginLeft: "33em" }}>
-            <div className="p-fluid gridF formgrid">
+          <div className="centralizar">
+            <div className="label_campos">
               <div className="field col-12 md:col-4">
                 <label htmlFor="agddata">Data Agendamento</label>
                 <div>
@@ -53,7 +54,7 @@ const AgendamentoForm = (props) => {
                 </div>
               </div>
             </div>
-            <div className="p-fluid grid formgrid">
+            <div className="label_campos">
               <div className="field col-12 md:col-4">
                 <label htmlFor="agdfuncionario">Funcionário:</label>
                 <Dropdown
@@ -72,7 +73,7 @@ const AgendamentoForm = (props) => {
                 />
               </div>
             </div>
-            <div className="p-fluid grid formgrid">
+            <div className="label_campos">
               <div className="field col-12 md:col-4">
                 <label htmlFor="agdservico">Serviço:</label>
                 <Dropdown
@@ -91,7 +92,7 @@ const AgendamentoForm = (props) => {
                 />
               </div>
             </div>
-            <div className="p-fluid grid formgrid">
+            <div className="label_campos">
               <div className="field col-12 md:col-4">
                 <label htmlFor="agdusuario">Usuario:</label>
                 <Dropdown
@@ -110,7 +111,7 @@ const AgendamentoForm = (props) => {
                 />
               </div>
             </div>
-            <div className="p-fluid grid formgrid">
+            <div className="label_campos">
               <div className="field col-12 md:col-4">
                 <label htmlFor="agdcliente">Cliente:</label>
                 <Dropdown
@@ -129,7 +130,7 @@ const AgendamentoForm = (props) => {
                 />
               </div>
             </div>
-            <div className="p-fluid gridF formgrid">
+            <div className="label_campos">
               <div className="field col-12 md:col-4">
                 <label htmlFor="agdqtdhoras">Horas Agendamento</label>
                 <div>
@@ -154,17 +155,17 @@ const AgendamentoForm = (props) => {
               </div>
             </div>
           </div>
-          <div>
+          <div className="div_buttons">
             <Button
               type="submit"
               icon="pi pi-pencil"
-              className="p-button-rounded p-button-text "
+              className="buttons"
               label="Salvar"
             ></Button>
             <Button
               type="button"
               icon="pi pi-trash"
-              className="p-button-rounded p-button-text"
+              className="buttons"
               label="Cancelar"
               onClick={props.cancelar}
             ></Button>

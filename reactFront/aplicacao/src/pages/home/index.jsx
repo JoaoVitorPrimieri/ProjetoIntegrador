@@ -1,10 +1,10 @@
 import React from "react";
- 
+import "../../components/css/home.css";
 
 const HomePage = () => {
   return (
     <div>
-      <h1>Login teste</h1>
+      <h1>Bem-vindo ao Prestax!</h1>
     </div>
   );
 };

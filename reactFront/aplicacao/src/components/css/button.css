@@ -1,0 +1,43 @@
+.div_botoes {
+    margin-top: 2%;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    color: whitesmoke;
+    font-size: large;
+}
+
+.botoes {
+
+    background-color: #ffffff;
+    border: none;
+    margin-inline: 5px;
+    color: black;
+    font-size: medium;
+    width: 80px;
+    font-weight: bold;
+    border-radius: 15%;
+}
+
+.botoes:hover {
+
+    background-color: #5adbd8;
+    border: none;
+    margin-inline: 5px;
+    color: black;
+    font-size: medium;
+    width: 80px;
+    font-weight: bold;
+    border-radius: 15%;
+}
+
+/* .card {
+    background-color: red;
+} */
+
+
+.card {
+    padding: 1%;
+    background-color: #25292b;
+    border: none;
+}

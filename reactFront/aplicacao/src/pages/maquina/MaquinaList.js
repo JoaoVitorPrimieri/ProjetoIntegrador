@@ -3,7 +3,7 @@ import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { Dropdown } from "primereact/dropdown";
 import maquinasPDF from "../../Relatorios/Maquinas/maquinas";
-
+import "../../components/css/button.css";
 const dateFormater = (rowData) => {
   return new Intl.DateTimeFormat("pt-BR", {
     year: "numeric",
@@ -58,7 +58,7 @@ const MaquinaList = (props) => {
       <React.Fragment>
         <button
           onClick={() => props.editar(rowData.maqid)}
-          className="btn btn-danger"
+          className="btn btn-warning"
         >
           Editar
         </button>
@@ -74,29 +74,28 @@ const MaquinaList = (props) => {
   return (
     <div>
       <div>
-        <h4>Listagem de Maquinas</h4>
-        <button
-          button
-          type="button"
-          className="btn btn-light btn-sm"
-          onClick={props.onClickAtualizar}
-        >
-          Atualizar
-        </button>
-        <button
-          type="button"
-          className="btn btn-light btn-sm"
-          onClick={props.inserir}
-        >
-          Inserir
-        </button>
-        <button
-          type="button"
-          className="btn btn-danger"
-          onClick={(e) => maquinasPDF(props.maquinas)}
-        >
-          Gerar PDF
-        </button>
+        <div className="div_botoes">
+          <h4>Listagem de Maquinas</h4>
+
+          <button
+            button
+            type="button"
+            className="botoes"
+            onClick={props.onClickAtualizar}
+          >
+            Atualizar
+          </button>
+          <button type="button" className="botoes" onClick={props.inserir}>
+            Inserir
+          </button>
+          <button
+            type="button"
+            className="botoes"
+            onClick={(e) => maquinasPDF(props.maquinas)}
+          >
+            Gerar PDF
+          </button>
+        </div>
         <div className="card">
           <DataTable
             value={props.maquinas}

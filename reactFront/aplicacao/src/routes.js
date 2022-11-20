@@ -1,7 +1,7 @@
 import React, { Suspense, lazy } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Menu from "./Menu";
-import Rodape from "./Componentes/comp/rodape";
+import Rodape from "./components/comp/rodape";
 // import Login from "./pages/login/indexx";
 
 const UsuarioCon = lazy(() => import("./pages/usuario/UsuarioCon"));
@@ -10,7 +10,7 @@ const ClienteCon = lazy(() => import("./pages/cliente/ClienteCon"));
 const MaquinaCon = lazy(() => import("./pages/maquina/MaquinaCon"));
 const ServicoCon = lazy(() => import("./pages/servico/ServicoCon"));
 const AgendamentoCon = lazy(() => import("./pages/agendamento/AgendamentoCon"));
-// const Login = lazy(() => import("./pages/login/indexx"));
+const Home = lazy(() => import("./pages/home/index"));
 
 function Rotas() {
   return (
@@ -19,8 +19,7 @@ function Rotas() {
         <Suspense fallback={<div>Carregando ...</div>}>
           <Menu />
           <Routes>
-            {/* <Route path="/" element={<LoginPage/>} /> */}
-            {/* <Route exact path="/login" element={<Login />} /> */}
+            <Route path="/" element={<Home />} />
             <Route path="/usuarios" element={<UsuarioCon />} />
             <Route path="/funcionarios" element={<FuncionarioCon />} />
             <Route path="/clientes" element={<ClienteCon />} />

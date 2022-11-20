@@ -3,6 +3,7 @@ import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { Dropdown } from "primereact/dropdown";
 import clientesPDF from "../../Relatorios/Clientes/clientes";
+import "../../components/css/button.css";
 
 const template2 = {
   layout: "RowsPerPageDropdown CurrentPageReport PrevPageLink NextPageLink",
@@ -51,7 +52,7 @@ const ClienteList = (props) => {
       <React.Fragment>
         <button
           onClick={() => props.editar(rowData.cliid)}
-          className="btn btn-danger"
+          className="btn btn-warning"
         >
           Editar
         </button>
@@ -67,29 +68,28 @@ const ClienteList = (props) => {
   return (
     <div>
       <div>
-        <h4>Listagem de Clientes</h4>
-        <button
-          button
-          type="button"
-          className="btn btn-light btn-sm"
-          onClick={props.onClickAtualizar}
-        >
-          Atualizar
-        </button>
-        <button
-          type="button"
-          className="btn btn-light btn-sm"
-          onClick={props.inserir}
-        >
-          Inserir
-        </button>
-        <button
-          type="button"
-          className="btn btn-danger"
-          onClick={(e) => clientesPDF(props.clientes)}
-        >
-          Gerar PDF
-        </button>
+        <div className="div_botoes">
+          <h4>Listagem de Clientes</h4>
+
+          <button
+            button
+            type="button"
+            className="botoes"
+            onClick={props.onClickAtualizar}
+          >
+            Atualizar
+          </button>
+          <button type="button" className="botoes" onClick={props.inserir}>
+            Inserir
+          </button>
+          <button
+            type="button"
+            className="botoes"
+            onClick={(e) => clientesPDF(props.clientes)}
+          >
+            Gerar PDF
+          </button>
+        </div>
         <div className="card">
           <DataTable
             value={props.clientes}

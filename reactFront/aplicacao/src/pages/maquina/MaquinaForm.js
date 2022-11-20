@@ -4,6 +4,7 @@ import { Button } from "primereact/button";
 import { useForm } from "react-hook-form";
 import { InputMask } from "primereact/inputmask";
 import { Dropdown } from "primereact/dropdown";
+import "../../components/css/formulario.css";
 
 const MaquinaForm = (props) => {
   const handleInputChange = (event) => {
@@ -36,11 +37,11 @@ const MaquinaForm = (props) => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <div style={{ padding: 15 }}>
-        <div className="card">
+      <div className="forms" style={{ padding: 15 }}>
+        <div className="forms">
           <h5>Cadastro de Maquinas</h5>
-          <div style={{ marginLeft: "33em" }}>
-            <div className="p-fluid grid formgrid">
+          <div className="centralizar">
+            <div className="label_campos">
               <div className="field col-12 md:col-4">
                 <label htmlFor="maqmodelo">Modelo</label>
                 <InputText
@@ -69,7 +70,7 @@ const MaquinaForm = (props) => {
                 )}
               </div>
             </div>
-            <div className="p-fluid grid formgrid">
+            <div className="label_campos">
               <div className="field col-12 md:col-4">
                 <label htmlFor="maqmarca">Marca</label>
                 <InputText
@@ -98,7 +99,7 @@ const MaquinaForm = (props) => {
                 )}
               </div>
             </div>
-            <div className="p-fluid gridF formgrid">
+            <div className="label_campos">
               <div className="field col-12 md:col-4">
                 <label htmlFor="maqtipocombustivel">Tipo do Combustivel</label>
 
@@ -117,7 +118,7 @@ const MaquinaForm = (props) => {
                 />
               </div>
             </div>
-            <div className="p-fluid gridF formgrid">
+            <div className="label_campos">
               <div className="field col-12 md:col-4">
                 <label htmlFor="maqanofabricacao">Data Fabricação</label>
                 <div>
@@ -141,7 +142,7 @@ const MaquinaForm = (props) => {
                 </div>
               </div>
             </div>
-            <div className="p-fluid gridF formgrid">
+            <div className="label_campos">
               <div className="field col-12 md:col-4">
                 <label htmlFor="maqnmrchassi">Número do Chassi</label>
                 <div>
@@ -167,17 +168,17 @@ const MaquinaForm = (props) => {
             </div>
           </div>
 
-          <div>
+          <div className="div_buttons">
             <Button
               type="submit"
               icon="pi pi-pencil"
-              className="p-button-rounded p-button-text "
+              className="buttons"
               label="Salvar"
             ></Button>
             <Button
               type="button"
               icon="pi pi-trash"
-              className="p-button-rounded p-button-text"
+              className="buttons"
               label="Cancelar"
               onClick={props.cancelar}
             ></Button>

@@ -3,6 +3,8 @@ import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { Dropdown } from "primereact/dropdown";
 import servicosPDF from "../../Relatorios/Servicos/servicos";
+import "../../components/css/button.css";
+
 const template2 = {
   layout: "RowsPerPageDropdown CurrentPageReport PrevPageLink NextPageLink",
   RowsPerPageDropdown: (options) => {
@@ -50,7 +52,7 @@ const ServicoList = (props) => {
       <React.Fragment>
         <button
           onClick={() => props.editar(rowData.serid)}
-          className="btn btn-danger"
+          className="btn btn-warning"
         >
           Editar
         </button>
@@ -66,30 +68,28 @@ const ServicoList = (props) => {
   return (
     <div>
       <div>
-        <h4>Listagem de Serviços</h4>
+        <div className="div_botoes">
+          <h4>Listagem de Serviços</h4>
 
-        <button
-          button
-          type="button"
-          className="btn btn-light btn-sm"
-          onClick={props.onClickAtualizar}
-        >
-          Atualizar
-        </button>
-        <button
-          type="button"
-          className="btn btn-light btn-sm"
-          onClick={props.inserir}
-        >
-          Inserir
-        </button>
-        <button
-          type="button"
-          className="btn btn-danger"
-          onClick={(e) => servicosPDF(props.servicos)}
-        >
-          Gerar PDF
-        </button>
+          <button
+            button
+            type="button"
+            className="botoes"
+            onClick={props.onClickAtualizar}
+          >
+            Atualizar
+          </button>
+          <button type="button" className="botoes" onClick={props.inserir}>
+            Inserir
+          </button>
+          <button
+            type="button"
+            className="botoes"
+            onClick={(e) => servicosPDF(props.servicos)}
+          >
+            Gerar PDF
+          </button>
+        </div>
         <div className="card">
           <DataTable
             value={props.servicos}

@@ -110,17 +110,6 @@ exports.deleteUsuariosById = async (req, res) => {
 
   res.status(200).send({ message: "Usuario deletado com sucesso!", usuid });
 };
-// exports.login = async (req, res) => {
-//   const { usuemail, ususenha } = req.body;
-
-//   const response = await db.query(
-//     "SELECT usuemail, ususenha FROM usuarios WHERE usuemail = $1 AND ususenha = $2",
-//     [usuemail, ususenha]
-
-//   );
-//   res.status(200).send(response.rows);
-// };
-
 exports.login = async (req, res) => {
   const { usuemail, ususenha } = req.body;
   const response = await db.query(

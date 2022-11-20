@@ -1,7 +1,7 @@
 import React from "react";
 import { Menubar } from "primereact/menubar";
 import { useNavigate } from "react-router-dom";
-import "../src/Componentes/css/App.css";
+import "../src/components/css/App.css";
 
 function Menu() {
   let navigate = useNavigate();
@@ -19,7 +19,7 @@ function Menu() {
       items: [
         {
           label: "Agendamento",
-          icon: "pi pi-fw pi-user",
+          icon: "pi pi-book",
           command: () => {
             navigate("/agendamentos");
           },
@@ -32,38 +32,31 @@ function Menu() {
           },
         },
         {
-          label: "Funcionario",
+          label: "Funcionário",
           icon: "pi pi-fw pi-user",
           command: () => {
             navigate("/funcionarios");
           },
         },
         {
-          label: "Usuarios",
-          icon: "pi pi-fw pi-user",
+          label: "Usuários",
+          icon: "pi pi-id-card",
           command: () => {
             navigate("/usuarios");
           },
         },
         {
           label: "Maquina",
-          icon: "pi pi-fw pi-user",
+          icon: "pi pi-paperclip",
           command: () => {
             navigate("/maquinas");
           },
         },
         {
           label: "Serviço",
-          icon: "pi pi-fw pi-user",
+          icon: "pi pi-briefcase",
           command: () => {
             navigate("/servicos");
-          },
-        },
-        {
-          label: "Relatórios",
-          icon: "pi pi-fw pi-user",
-          command: () => {
-            navigate("/relatorios");
           },
         },
       ],

@@ -1,5 +1,5 @@
 .form {
-    background-color: whitesmoke;
+    background-color: #5adbd8;
     width: 40%;
     display: block;
     float: right;
@@ -7,7 +7,7 @@
 }
 
 .side {
-    background-color: rgb(45, 51, 49);
+    background-color: #25292b;
     width: 60%;
     display: flex;
     align-items: center;
@@ -16,7 +16,7 @@
 }
 
 .test {
-    background-color: rgb(255, 255, 255);
+    background-color: whitesmoke;
     display: block;
     height: 50px;
     width: 300px;
@@ -25,7 +25,15 @@
     margin-top: 0%;
     margin-right: 25%;
     margin-left: 25%;
-    border-radius: 10px;
+    border: none;
+}
+
+
+.test:focus {
+    transition: 1s;
+    background-color: rgb(235, 230, 230);
+    border: none;
+
 }
 
 .img {
@@ -46,6 +54,18 @@ h2 {
     text-align: center;
     align-items: center;
     justify-content: center;
+    width: 15%;
+    height: 5%;
+    margin-top: 10%;
+    margin-left: 42.5%;
+}
+
+/* botao para login*/
+.button {
+    background-color: #25292b;
+    color: white;
+    border: none;
+    border-radius: 5px;
     width: 15%;
     height: 5%;
     margin-top: 10%;
