@@ -60,7 +60,7 @@ exports.createAgendamentos = async (req, res) => {
 };
 exports.listAllAgendamentos = async (req, res) => {
   const response = await db.query(
-    "SELECT agendamentos.agdid, agendamentos.agddata, funcionarios.funNome as agdfuncionario, servicos.serNome as agdservico, usuarios.usuNome as agdusuario, clientes.cliNome as agdcliente, agendamentos.agdqtdhoras, agendamentos.agdvalortotal " +
+    "SELECT agendamentos.agdid, agendamentos.agddata, funcionarios.funNome as agdfun, servicos.serNome as agdser, usuarios.usuNome as agdusu, clientes.cliNome as agdcli, agendamentos.agdfuncionario, agendamentos.agdservico, agendamentos.agdusuario, agendamentos.agdcliente, agendamentos.agdqtdhoras, agendamentos.agdvalortotal " +
       "FROM agendamentos " +
       "inner join funcionarios on agendamentos.agdfuncionario = funcionarios.funid " +
       "inner join servicos on agendamentos.agdservico = servicos.serid " +

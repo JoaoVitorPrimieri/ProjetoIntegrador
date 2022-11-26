@@ -6,6 +6,12 @@ class FuncionarioSrv {
       throw err;
     });
   }
+  async listarById(funid) {
+    return await axios.get(this.url + "/" + funid).catch((err) => {
+      throw err;
+    });
+  }
+
   async incluir(data) {
     return await axios.post(this.url, data).catch((err) => {
       throw err;

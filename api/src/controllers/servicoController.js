@@ -27,7 +27,7 @@ exports.createServicos = async (req, res) => {
 };
 exports.listAllServicos = async (req, res) => {
   const response = await db.query(
-    "SELECT servicos.serid,  servicos.sernome, servicos.servalorservicobase, maquinas.maqModelo as sermaquinaid " +
+    "SELECT servicos.serid,  servicos.sernome, servicos.servalorservicobase, maquinas.maqModelo as sermaquina, servicos.sermaquinaid " +
       "from servicos  inner join maquinas on servicos.sermaquinaid = maquinas.maqid"
   );
   res.status(200).send(response.rows);

@@ -103,13 +103,19 @@ const ServicoList = (props) => {
           >
             <Column field="sernome" header="Nome" sortable filter></Column>
             <Column
+              body={(rowData) => {
+                return rowData.servalorservicobase.toLocaleString("pt-BR", {
+                  style: "currency",
+                  currency: "BRL",
+                });
+              }}
               field="servalorservicobase"
               header="Valor Base"
               sortable
               filter
             ></Column>
             <Column
-              field="sermaquinaid"
+              field="sermaquina"
               header="Maquina Alocada"
               sortable
               filter

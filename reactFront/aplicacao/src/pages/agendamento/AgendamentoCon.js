@@ -114,7 +114,9 @@ function AgendamentoCon() {
   const salvar = () => {
     if (agendamento.agdid == null) {
       // inclussão
+      console.log();
       AgendamentoSrv.incluir(agendamento)
+
         .then((response) => {
           setEditando(false);
           onClickAtualizar();
@@ -173,7 +175,7 @@ function AgendamentoCon() {
   };
 
   const excluirConfirm = (agdid) => {
-    ServicoSrv.excluir(agdid)
+    AgendamentoSrv.excluir(agdid)
       .then((response) => {
         onClickAtualizar();
         toastRef.current.show({

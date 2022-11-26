@@ -110,32 +110,32 @@ const AgendamentoList = (props) => {
           >
             <Column header="Data" body={dateFormater} sortable filter></Column>
             <Column
-              field="agdfuncionario"
+              field="agdfun"
               header="Funcionarios"
               sortable
               filter
             ></Column>
+            <Column field="agdser" header="Serviços" sortable filter></Column>
+            <Column field="agdusu" header="Usuarios" sortable filter></Column>
+            <Column field="agdcli" header="Clientes" sortable filter></Column>
             <Column
-              field="agdservico"
-              header="Serviços"
-              sortable
-              filter
-            ></Column>
-            <Column
-              field="agdusuario"
-              header="Usuarios"
-              sortable
-              filter
-            ></Column>
-            <Column
-              field="agdcliente"
-              header="Clientes"
-              sortable
-              filter
-            ></Column>
-            <Column
+              body={(rowData) => {
+                return rowData.agdqtdhoras + " horas";
+              }}
               field="agdqtdhoras"
               header="Quantidade de Horas"
+              sortable
+              filter
+            ></Column>
+            <Column
+              body={(rowData) => {
+                return rowData.agdvalortotal.toLocaleString("pt-BR", {
+                  style: "currency",
+                  currency: "BRL",
+                });
+              }}
+              field="agdvalortotal"
+              header="Valor Total"
               sortable
               filter
             ></Column>

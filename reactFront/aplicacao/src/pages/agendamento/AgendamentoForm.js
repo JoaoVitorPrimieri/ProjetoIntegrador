@@ -1,24 +1,26 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button } from "primereact/button";
 import { useForm } from "react-hook-form";
 import { Dropdown } from "primereact/dropdown";
 import { InputMask } from "primereact/inputmask";
 import "../../components/css/formulario.css";
+import { InputText } from "primereact/inputtext";
 
 const AgendamentoForm = (props) => {
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     props.setAgendamento({ ...props.agendamento, [name]: value });
+    console.log(props.agendamento.agdfuncionario);
   };
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
   const [agdDataMask, setagdDataMask] = useState(props.agendamento.agddata);
 
   const [agdHorasMask, setagdHorasMask] = useState(props.agendamento.agdhoras);
-
-  const {
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
 
   const onSubmit = (data) => {
     props.salvar();
@@ -134,9 +136,30 @@ const AgendamentoForm = (props) => {
               <div className="field col-12 md:col-4">
                 <label htmlFor="agdqtdhoras">Horas Agendamento</label>
                 <div>
-                  <InputMask
+                  <InputText
                     name="agdqtdhoras"
-                    mask="99:99"
+                    {...register("agdqtdhoras", {
+                      required: {
+                        value: true,
+                        message: "A quantidade de horas é obrigatório!",
+                      },
+                      maxLength: {
+                        value: 100,
+                        message:
+                          "A quantidade de horas pode ter no máximo 100 caracteres!",
+                      },
+                      minLength: {
+                        value: 1,
+                        message:
+                          "A quantidade de horas deve ter no mínimo 2 caracteres!",
+                      },
+                    })}
+                    defaultValue={props.agendamento.agdqtdhoras}
+                    onChange={handleInputChange}
+                  />
+                  {/* <InputMask
+                    name="agdqtdhoras"
+                    // mask="99:99"
                     value={agdHorasMask}
                     onChange={(e) => {
                       setagdHorasMask(e.value);
@@ -145,7 +168,7 @@ const AgendamentoForm = (props) => {
                         agdqtdhoras: e.value,
                       });
                     }}
-                  />
+                  /> */}
                   {errors.agdqtdhoras && (
                     <span style={{ color: "red" }}>
                       {errors.agdqtdhoras.message}
