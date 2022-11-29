@@ -1,4 +1,5 @@
 import "../../components/css/login.css";
+import { InputText } from "primereact/inputtext";
 
 import logo from "../../components/img/image.svg";
 import React, { useState, useRef } from "react";
@@ -12,9 +13,9 @@ const LoginFormulario = (props) => {
     setCredenciais({ ...credenciais, [id]: value });
   };
   const {
-    // register,
+    register,
     handleSubmit,
-    // formState: { errors },
+    formState: { errors },
   } = useForm();
   const toastRef = useRef();
   const [credenciais, setCredenciais] = useState({
@@ -43,28 +44,48 @@ const LoginFormulario = (props) => {
       <div>
         <div className="form">
           <h2>Login</h2>
-
-          <input
+          <InputText
+            placeholder="Email"
             className="test"
             type="text"
-            required
             name="usuemail"
-            placeholder="Email"
+            {...register("usuemail", {
+              required: {
+                value: true,
+                message: "O email é obrigatório",
+              },
+              pattern: {
+                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
+                message: "Email inválido",
+              },
+            })}
             id="usuemail"
             value={credenciais.usuemail}
             onChange={handleInputChange}
-          ></input>
+          />
+          {errors.usuemail && (
+            <span className="spans">{errors.usuemail.message}</span>
+          )}
           <br></br>
-          <input
+          <InputText
+            placeholder="Senha"
             className="test"
             type="password"
-            name="usuenha"
-            required
-            placeholder="Senha"
+            name="ususenha"
+            {...register("ususenha", {
+              required: {
+                value: true,
+                message: "A senha é obrigatória",
+              },
+            })}
             id="ususenha"
             value={credenciais.ususenha}
             onChange={handleInputChange}
           />
+          {errors.ususenha && (
+            <span className="spans">{errors.ususenha.message}</span>
+          )}
+          <br></br>
           <button type="submit" className="button">
             Entrar
           </button>

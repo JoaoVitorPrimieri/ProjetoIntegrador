@@ -49,16 +49,6 @@ function UsuarioCont() {
       });
   };
 
-  // React.useEffect(() => {
-  //   api
-  //     .get("/usuarios")
-  //     .then((response) => setUsuarios(response.data))
-  //     .catch((err) => {
-  //       console.error("ops! ocorreu um erro" + err);
-  //     });
-  // }, []);
-  // // operação inserir
-
   const inserir = () => {
     setUsuario(initialState);
     setEditando(true);

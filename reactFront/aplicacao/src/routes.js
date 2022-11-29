@@ -1,8 +1,6 @@
 import React, { Suspense, lazy } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Menu from "./Menu";
-import Rodape from "./components/comp/rodape";
-// import Login from "./pages/login/indexx";
 
 const UsuarioCon = lazy(() => import("./pages/usuario/UsuarioCon"));
 const FuncionarioCon = lazy(() => import("./pages/funcionario/FuncionarioCon"));
@@ -27,7 +25,6 @@ function Rotas() {
             <Route path="/servicos" element={<ServicoCon />} />
             <Route path="/agendamentos" element={<AgendamentoCon />} />
           </Routes>
-          <Rodape />
         </Suspense>
       </BrowserRouter>
     </div>

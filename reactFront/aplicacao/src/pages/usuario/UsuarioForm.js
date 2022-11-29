@@ -104,7 +104,10 @@ const UsuarioForm = (props) => {
                   value={usuCpfMask}
                   onChange={(e) => {
                     setUsuCpfMask(e.value);
-                    props.setUsuario({ ...props.usuario, usucpf: e.value });
+                    props.setUsuario({
+                      ...props.usuario,
+                      usucpf: e.value,
+                    });
                   }}
                 />
 
